@@ -21,7 +21,7 @@ projectRouter.get(
   projectController.findAll
 );
 projectRouter.get("/:id", projectController.findById);
-projectRouter.put(
+projectRouter.patch(
   "/:id",
   validate(updateProjectSchema),
   projectController.update

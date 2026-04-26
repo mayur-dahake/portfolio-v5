@@ -13,6 +13,9 @@ export const createProfileSchema = z.object({
   website: z.string().url().optional(),
   github: z.string().url().optional(),
   linkedin: z.string().url().optional(),
+  twitterUrl: z.string().url().optional().or(z.literal("")),
+  resumeUrl: z.string().url().optional().or(z.literal("")),
+  yearsExperience: z.number().int().min(0).max(60).optional(),
   order: z.number().int().default(1)
 });
 

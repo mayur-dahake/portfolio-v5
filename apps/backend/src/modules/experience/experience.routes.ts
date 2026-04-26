@@ -21,7 +21,7 @@ experienceRouter.get(
   experienceController.findAll
 );
 experienceRouter.get("/:id", experienceController.findById);
-experienceRouter.put(
+experienceRouter.patch(
   "/:id",
   validate(updateExperienceSchema),
   experienceController.update

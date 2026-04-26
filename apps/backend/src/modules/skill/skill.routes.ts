@@ -17,5 +17,5 @@ skillRouter.get(
   skillController.findAll
 );
 skillRouter.get("/:id", skillController.findById);
-skillRouter.put("/:id", validate(updateSkillSchema), skillController.update);
+skillRouter.patch("/:id", validate(updateSkillSchema), skillController.update);
 skillRouter.delete("/:id", skillController.remove);

@@ -3,8 +3,10 @@ import { z } from "zod";
 export const createProjectSchema = z.object({
   title: z.string().trim().min(1).max(200),
   description: z.string().trim().min(1).max(2000),
+  longDescription: z.string().trim().max(5000).optional(),
   techStack: z.array(z.string().trim()).default([]),
   tags: z.array(z.string().trim()).default([]),
+  featured: z.boolean().default(false),
   repoUrl: z.string().url().optional(),
   liveUrl: z.string().url().optional(),
   order: z.number().int().default(0)
