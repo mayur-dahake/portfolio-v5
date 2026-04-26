@@ -14,7 +14,7 @@ profileRouter.post(
 profileRouter.get("/", profileController.getSingle);
 profileRouter.put(
   "/",
-  validate(updateProfileSchema),
+  validate(createProfileSchema),
   profileController.updateSingle
 );
 profileRouter.patch(

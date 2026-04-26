@@ -13,6 +13,7 @@ async function main() {
   await prisma.experience.deleteMany();
   await prisma.project.deleteMany();
   await prisma.profile.deleteMany();
+  await prisma.user.deleteMany();
 
   await prisma.profile.create({ data: profileData });
   console.log("  Profile created");
