@@ -1,0 +1,10 @@
+/** @type {import('jest').Config} */
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  roots: ["<rootDir>/tests"],
+  clearMocks: true,
+  moduleFileExtensions: ["ts", "js", "json"],
+  testMatch: ["**/*.test.ts"],
+  testPathIgnorePatterns: ["/node_modules/", "<rootDir>/tests/integration/"]
+};
