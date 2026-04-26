@@ -24,10 +24,10 @@
     "turbo": "^2.9.6"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,json,md}": [
+    "*.{js,jsx,ts,tsx,json,md}": [
       "prettier --write"
     ],
-    "apps/frontend/**/*.{ts,tsx}": [
+    "apps/frontend/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
   }

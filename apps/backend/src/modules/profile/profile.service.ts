@@ -18,7 +18,9 @@ export const profileService = {
   },
 
   async getSingle() {
-    const profile = await prisma.profile.findFirst({ orderBy: { createdAt: "asc" } });
+    const profile = await prisma.profile.findFirst({
+      orderBy: { createdAt: "asc" }
+    });
     if (!profile) {
       throw new ApiError(HttpStatus.NOT_FOUND, "Profile not found");
     }
@@ -26,7 +28,9 @@ export const profileService = {
   },
 
   async updateSingle(payload: Prisma.ProfileUpdateInput) {
-    const profile = await prisma.profile.findFirst({ orderBy: { createdAt: "asc" } });
+    const profile = await prisma.profile.findFirst({
+      orderBy: { createdAt: "asc" }
+    });
     if (!profile) {
       throw new ApiError(HttpStatus.NOT_FOUND, "Profile not found");
     }

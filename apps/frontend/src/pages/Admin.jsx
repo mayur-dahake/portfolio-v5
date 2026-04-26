@@ -33,7 +33,9 @@ function PasswordGate({ onUnlock }) {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
       <form onSubmit={handleSubmit} className="space-y-4 w-72">
-        <p className="text-xs font-mono text-white/40 tracking-widest text-center">ADMIN ACCESS</p>
+        <p className="text-xs font-mono text-white/40 tracking-widest text-center">
+          ADMIN ACCESS
+        </p>
         <input
           type="password"
           value={input}
@@ -76,9 +78,14 @@ export default function Admin() {
             PORTFOLIO
           </a>
           <div className="w-px h-4 bg-white/10" />
-          <span className="text-xs font-mono text-[#ff0080] tracking-widest">ADMIN PANEL</span>
+          <span className="text-xs font-mono text-[#ff0080] tracking-widest">
+            ADMIN PANEL
+          </span>
         </div>
-        <div className="w-2 h-2 bg-[#ff0080] rounded-full animate-pulse" title="Admin mode" />
+        <div
+          className="w-2 h-2 bg-[#ff0080] rounded-full animate-pulse"
+          title="Admin mode"
+        />
       </div>
 
       <div className="pt-16 flex min-h-screen">
@@ -93,18 +100,26 @@ export default function Admin() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 text-left text-xs font-mono tracking-wider transition-colors relative ${
-                    isActive ? "text-white" : "text-white/30 hover:text-white/60"
+                    isActive
+                      ? "text-white"
+                      : "text-white/30 hover:text-white/60"
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="admin-tab"
                       className="absolute inset-0 bg-white/5 border-l-2 border-[#ff0080]"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30
+                      }}
                     />
                   )}
                   <Icon className="w-4 h-4 relative z-10 flex-shrink-0" />
-                  <span className="relative z-10">{tab.label.toUpperCase()}</span>
+                  <span className="relative z-10">
+                    {tab.label.toUpperCase()}
+                  </span>
                 </button>
               );
             })}
@@ -123,10 +138,13 @@ export default function Admin() {
               {tabs.find((t) => t.id === activeTab)?.label}
             </h1>
             <p className="text-xs font-mono text-white/30 tracking-widest mb-10">
-              {activeTab === "profile" && "Edit your personal info and social links"}
-              {activeTab === "projects" && "Add, edit, or remove portfolio projects"}
+              {activeTab === "profile" &&
+                "Edit your personal info and social links"}
+              {activeTab === "projects" &&
+                "Add, edit, or remove portfolio projects"}
               {activeTab === "experience" && "Manage your work history"}
-              {activeTab === "skills" && "Manage your skills and proficiency levels"}
+              {activeTab === "skills" &&
+                "Manage your skills and proficiency levels"}
             </p>
 
             {activeTab === "profile" && <ProfileForm />}

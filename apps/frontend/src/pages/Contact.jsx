@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, User, MessageSquare, CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
+import {
+  Send,
+  Mail,
+  User,
+  MessageSquare,
+  CheckCircle,
+  AlertCircle,
+  ArrowLeft
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,16 +18,16 @@ import { createPageUrl } from "@/utils";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -29,7 +37,9 @@ export default function Contact() {
 
     try {
       // No backend email service — open the default mail client with pre-filled content
-      const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
+      const subject = encodeURIComponent(
+        `Portfolio Contact: Message from ${formData.name}`
+      );
       const body = encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
       );
@@ -54,8 +64,8 @@ export default function Contact() {
 
       <div className="relative z-10 px-4 md:px-12 lg:px-24 py-12">
         {/* Back link */}
-        <Link 
-          to={createPageUrl('Home')}
+        <Link
+          to={createPageUrl("Home")}
           className="inline-flex items-center gap-2 text-white/50 hover:text-[#ff0080] transition-colors mb-12"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -70,20 +80,25 @@ export default function Contact() {
             className="mb-12"
           >
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-xs font-mono text-white/40 tracking-widest">001</span>
+              <span className="text-xs font-mono text-white/40 tracking-widest">
+                001
+              </span>
               <div className="w-16 h-px bg-white/20" />
-              <span className="text-xs font-mono text-white/40 tracking-widest">CONTACT</span>
+              <span className="text-xs font-mono text-white/40 tracking-widest">
+                CONTACT
+              </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4">
               GET IN <span className="text-[#ff0080]">TOUCH</span>
             </h1>
             <p className="text-white/50 text-lg">
-              Have a project in mind or just want to say hello? Drop me a message!
+              Have a project in mind or just want to say hello? Drop me a
+              message!
             </p>
           </motion.div>
 
           {/* Success Message */}
-          {submitStatus === 'success' && (
+          {submitStatus === "success" && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -91,16 +106,19 @@ export default function Contact() {
             >
               <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-bold text-green-400 mb-1">Message Sent Successfully!</h3>
+                <h3 className="font-bold text-green-400 mb-1">
+                  Message Sent Successfully!
+                </h3>
                 <p className="text-green-300/70 text-sm">
-                  Thank you for reaching out. I'll get back to you as soon as possible.
+                  Thank you for reaching out. I'll get back to you as soon as
+                  possible.
                 </p>
               </div>
             </motion.div>
           )}
 
           {/* Error Message */}
-          {submitStatus === 'error' && (
+          {submitStatus === "error" && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -108,9 +126,12 @@ export default function Contact() {
             >
               <AlertCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-bold text-red-400 mb-1">Failed to Send Message</h3>
+                <h3 className="font-bold text-red-400 mb-1">
+                  Failed to Send Message
+                </h3>
                 <p className="text-red-300/70 text-sm">
-                  Something went wrong. Please try again or email me directly at mayurdahake13@gmail.com
+                  Something went wrong. Please try again or email me directly at
+                  mayurdahake13@gmail.com
                 </p>
               </div>
             </motion.div>
@@ -126,7 +147,10 @@ export default function Contact() {
           >
             {/* Name Field */}
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2">
+              <Label
+                htmlFor="name"
+                className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2"
+              >
                 <User className="w-4 h-4" />
                 YOUR NAME
               </Label>
@@ -144,7 +168,10 @@ export default function Contact() {
 
             {/* Email Field */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2">
+              <Label
+                htmlFor="email"
+                className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2"
+              >
                 <Mail className="w-4 h-4" />
                 YOUR EMAIL
               </Label>
@@ -162,7 +189,10 @@ export default function Contact() {
 
             {/* Message Field */}
             <div className="space-y-2">
-              <Label htmlFor="message" className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2">
+              <Label
+                htmlFor="message"
+                className="text-white/70 font-mono text-xs tracking-wider flex items-center gap-2"
+              >
                 <MessageSquare className="w-4 h-4" />
                 YOUR MESSAGE
               </Label>
@@ -205,8 +235,11 @@ export default function Contact() {
             transition={{ delay: 0.3 }}
             className="text-center text-white/40 text-sm mt-8"
           >
-            Or email me directly at{' '}
-            <a href="mailto:mayurdahake13@gmail.com" className="text-[#ff0080] hover:underline">
+            Or email me directly at{" "}
+            <a
+              href="mailto:mayurdahake13@gmail.com"
+              className="text-[#ff0080] hover:underline"
+            >
               mayurdahake13@gmail.com
             </a>
           </motion.p>

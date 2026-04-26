@@ -22,7 +22,10 @@ export const experienceController = {
   },
 
   async update(req: Request, res: Response) {
-    const result = await experienceService.update(String(req.params.id), req.body);
+    const result = await experienceService.update(
+      String(req.params.id),
+      req.body
+    );
     res.status(HttpStatus.OK).json(result);
   },
 

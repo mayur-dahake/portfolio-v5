@@ -47,10 +47,13 @@ describe("Skill API (integration)", () => {
     expect(response.body.id).toBe(createdId);
   });
 
-  it("PUT /api/skills/:id - updates skill and returns 200", async () => {
-    const response = await request(app)
-      .put(`/api/skills/${createdId}`)
-      .send({ name: "TypeScript 5", category: "backend", proficiency: 95, order: 1 });
+  it("PATCH /api/skills/:id - updates skill and returns 200", async () => {
+    const response = await request(app).patch(`/api/skills/${createdId}`).send({
+      name: "TypeScript 5",
+      category: "backend",
+      proficiency: 95,
+      order: 1
+    });
 
     expect(response.status).toBe(200);
     expect(response.body.name).toBe("TypeScript 5");

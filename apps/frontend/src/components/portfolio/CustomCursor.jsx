@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
@@ -23,48 +23,56 @@ export default function CustomCursor() {
     };
 
     const onMouseOver = (e) => {
-      const target = e.target.closest('a, button, [role="button"], input, textarea, select');
+      const target = e.target.closest(
+        'a, button, [role="button"], input, textarea, select'
+      );
       if (target && !isHovering.current) {
         isHovering.current = true;
         if (ringRef.current) {
-          ringRef.current.style.width = '48px';
-          ringRef.current.style.height = '48px';
-          ringRef.current.style.borderColor = '#ff0080';
-          ringRef.current.style.backgroundColor = 'rgba(255,0,128,0.08)';
-          ringRef.current.style.marginLeft = '-24px';
-          ringRef.current.style.marginTop = '-24px';
+          ringRef.current.style.width = "48px";
+          ringRef.current.style.height = "48px";
+          ringRef.current.style.borderColor = "#ff0080";
+          ringRef.current.style.backgroundColor = "rgba(255,0,128,0.08)";
+          ringRef.current.style.marginLeft = "-24px";
+          ringRef.current.style.marginTop = "-24px";
         }
       } else if (!target && isHovering.current) {
         isHovering.current = false;
         if (ringRef.current) {
-          ringRef.current.style.width = '28px';
-          ringRef.current.style.height = '28px';
-          ringRef.current.style.borderColor = 'rgba(255,255,255,0.5)';
-          ringRef.current.style.backgroundColor = 'transparent';
-          ringRef.current.style.marginLeft = '-14px';
-          ringRef.current.style.marginTop = '-14px';
+          ringRef.current.style.width = "28px";
+          ringRef.current.style.height = "28px";
+          ringRef.current.style.borderColor = "rgba(255,255,255,0.5)";
+          ringRef.current.style.backgroundColor = "transparent";
+          ringRef.current.style.marginLeft = "-14px";
+          ringRef.current.style.marginTop = "-14px";
         }
       }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', onMouseOver);
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", onMouseOver);
 
     // Hide on mobile
-    document.documentElement.style.cursor = window.matchMedia('(pointer: coarse)').matches ? '' : 'none';
+    document.documentElement.style.cursor = window.matchMedia(
+      "(pointer: coarse)"
+    ).matches
+      ? ""
+      : "none";
 
     return () => {
-      window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseover', onMouseOver);
-      document.documentElement.style.cursor = '';
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", onMouseOver);
+      document.documentElement.style.cursor = "";
     };
   }, []);
 
   // Don't render on touch devices or when user prefers reduced motion
-  if (typeof window !== 'undefined' && (
-    window.matchMedia('(pointer: coarse)').matches ||
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )) return null;
+  if (
+    typeof window !== "undefined" &&
+    (window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+  )
+    return null;
 
   return (
     <>
@@ -80,7 +88,7 @@ export default function CustomCursor() {
           marginLeft: -14,
           marginTop: -14,
           borderWidth: 1,
-          borderColor: 'rgba(255,255,255,0.5)',
+          borderColor: "rgba(255,255,255,0.5)"
         }}
       />
 
@@ -93,7 +101,7 @@ export default function CustomCursor() {
           width: 4,
           height: 4,
           marginLeft: -2,
-          marginTop: -2,
+          marginTop: -2
         }}
       />
     </>

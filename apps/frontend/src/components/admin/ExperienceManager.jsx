@@ -131,10 +131,24 @@ function ExpForm({ exp, onSave, onCancel }) {
     <div className="border border-[#ff0080]/30 bg-[#ff0080]/5 p-5 space-y-4">
       <div className="grid md:grid-cols-2 gap-4">
         <Field label="COMPANY" value={data.company} onChange={set("company")} />
-        <Field label="ROLE / TITLE" value={data.title} onChange={set("title")} />
-        <Field label="START DATE" value={data.startDate} onChange={set("startDate")} type="date" />
+        <Field
+          label="ROLE / TITLE"
+          value={data.title}
+          onChange={set("title")}
+        />
+        <Field
+          label="START DATE"
+          value={data.startDate}
+          onChange={set("startDate")}
+          type="date"
+        />
         {!data.isCurrent && (
-          <Field label="END DATE" value={data.endDate} onChange={set("endDate")} type="date" />
+          <Field
+            label="END DATE"
+            value={data.endDate}
+            onChange={set("endDate")}
+            type="date"
+          />
         )}
       </div>
       <div className="flex items-center gap-3">
@@ -224,7 +238,11 @@ export default function ExperienceManager() {
       </button>
 
       {editing === "new" && (
-        <ExpForm exp={EMPTY} onSave={handleSave} onCancel={() => setEditing(null)} />
+        <ExpForm
+          exp={EMPTY}
+          onSave={handleSave}
+          onCancel={() => setEditing(null)}
+        />
       )}
 
       {isLoading && (
@@ -235,12 +253,18 @@ export default function ExperienceManager() {
         {sorted.map((exp) => (
           <div key={exp.id}>
             {editing === exp.id ? (
-              <ExpForm exp={exp} onSave={handleSave} onCancel={() => setEditing(null)} />
+              <ExpForm
+                exp={exp}
+                onSave={handleSave}
+                onCancel={() => setEditing(null)}
+              />
             ) : (
               <div className="flex items-center justify-between p-4 border border-white/10 hover:border-white/20 group transition-colors">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-white font-medium">{exp.company}</span>
+                    <span className="text-white font-medium">
+                      {exp.company}
+                    </span>
                     {exp.isCurrent && (
                       <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] font-mono">
                         CURRENT
@@ -252,8 +276,8 @@ export default function ExperienceManager() {
                     {exp.isCurrent
                       ? " — Present"
                       : exp.endDate
-                      ? ` — ${exp.endDate.slice(0, 7)}`
-                      : ""}
+                        ? ` — ${exp.endDate.slice(0, 7)}`
+                        : ""}
                   </p>
                 </div>
                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

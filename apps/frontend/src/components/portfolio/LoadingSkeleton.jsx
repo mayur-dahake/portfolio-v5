@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const Bone = ({ className }) => (
   <div className={`bg-white/5 animate-pulse ${className}`} />
@@ -11,7 +11,9 @@ export default function LoadingSkeleton() {
       <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-24 h-20 flex items-center justify-between">
         <Bone className="w-6 h-6" />
         <div className="hidden md:flex gap-8">
-          {[1,2,3,4,5].map(i => <Bone key={i} className="w-16 h-3 rounded" />)}
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Bone key={i} className="w-16 h-3 rounded" />
+          ))}
         </div>
         <Bone className="w-8 h-8 rounded" />
       </div>
@@ -54,7 +56,9 @@ export default function LoadingSkeleton() {
         transition={{ repeat: Infinity, duration: 1.5 }}
       >
         <div className="w-1.5 h-1.5 bg-[#ff0080]" />
-        <span className="text-[10px] font-mono text-white/30 tracking-widest">LOADING</span>
+        <span className="text-[10px] font-mono text-white/30 tracking-widest">
+          LOADING
+        </span>
       </motion.div>
     </div>
   );

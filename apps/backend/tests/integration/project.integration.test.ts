@@ -12,13 +12,15 @@ describe("Project API (integration)", () => {
   let createdId: string;
 
   it("POST /api/projects - creates a project and returns 201", async () => {
-    const response = await request(app).post("/api/projects").send({
-      title: "Integration Test Project",
-      description: "Created by integration test",
-      techStack: ["node", "typescript"],
-      tags: ["backend", "test"],
-      order: 1
-    });
+    const response = await request(app)
+      .post("/api/projects")
+      .send({
+        title: "Integration Test Project",
+        description: "Created by integration test",
+        techStack: ["node", "typescript"],
+        tags: ["backend", "test"],
+        order: 1
+      });
 
     expect(response.status).toBe(201);
     expect(response.body.id).toBeDefined();
@@ -50,9 +52,9 @@ describe("Project API (integration)", () => {
     expect(response.body.message).toBe("Project not found");
   });
 
-  it("PUT /api/projects/:id - updates project and returns 200", async () => {
+  it("PATCH /api/projects/:id - updates project and returns 200", async () => {
     const response = await request(app)
-      .put(`/api/projects/${createdId}`)
+      .patch(`/api/projects/${createdId}`)
       .send({
         title: "Updated Integration Project",
         description: "Updated by integration test",

@@ -5,9 +5,21 @@ import { Plus, Trash2, Edit, Save, X } from "lucide-react";
 import { sanitizeFormData } from "@/components/utils/sanitize";
 
 // Lowercase to match DB values from the seed / backend schema
-const CATEGORIES = ["frontend", "backend", "database", "devops", "tools", "other"];
+const CATEGORIES = [
+  "frontend",
+  "backend",
+  "database",
+  "devops",
+  "tools",
+  "other"
+];
 
-const EMPTY_SKILL = { name: "", category: "frontend", proficiency: 80, order: 0 };
+const EMPTY_SKILL = {
+  name: "",
+  category: "frontend",
+  proficiency: 80,
+  order: 0
+};
 
 // ─── Skill row (read view) ────────────────────────────────────────────────────
 
@@ -25,7 +37,9 @@ function SkillRow({ skill, onEdit, onDelete }) {
             style={{ width: `${skill.proficiency ?? 0}%` }}
           />
         </div>
-        <span className="text-white/40 text-xs font-mono w-8">{skill.proficiency}%</span>
+        <span className="text-white/40 text-xs font-mono w-8">
+          {skill.proficiency}%
+        </span>
       </div>
       <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
         <button

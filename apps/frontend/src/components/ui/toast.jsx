@@ -28,12 +28,12 @@ const toastVariants = cva(
       variant: {
         default: "border bg-background text-foreground",
         destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
-      },
+          "destructive group border-destructive bg-destructive text-destructive-foreground"
+      }
     },
     defaultVariants: {
-      variant: "default",
-    },
+      variant: "default"
+    }
   }
 );
 
@@ -85,11 +85,7 @@ const ToastTitle = React.forwardRef(({ className, ...props }, ref) => (
 ToastTitle.displayName = "ToastTitle";
 
 const ToastDescription = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("text-sm opacity-90", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("text-sm opacity-90", className)} {...props} />
 ));
 ToastDescription.displayName = "ToastDescription";
 
@@ -100,5 +96,5 @@ export {
   ToastTitle,
   ToastDescription,
   ToastClose,
-  ToastAction,
-}; 
+  ToastAction
+};

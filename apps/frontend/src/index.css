@@ -87,8 +87,21 @@
 
 /* ─── Scrollbar ─────────────────────────────────────────────────── */
 
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ff0080; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 0, 128, 0.8); }
-html { scrollbar-width: thin; scrollbar-color: #ff0080 transparent; }
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff0080;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 128, 0.8);
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #ff0080 transparent;
+}

@@ -62,7 +62,9 @@ describe("Experience API", () => {
 
   it("gets experience by id", async () => {
     prismaMock.experience.findUnique.mockResolvedValue(experience);
-    const response = await request(app).get(`/api/experiences/${experience.id}`);
+    const response = await request(app).get(
+      `/api/experiences/${experience.id}`
+    );
     expect(response.status).toBe(200);
   });
 
@@ -73,7 +75,7 @@ describe("Experience API", () => {
       title: "Senior Backend Engineer"
     });
     const response = await request(app)
-      .put(`/api/experiences/${experience.id}`)
+      .patch(`/api/experiences/${experience.id}`)
       .send({
         company: experience.company,
         title: "Senior Backend Engineer",
@@ -90,7 +92,9 @@ describe("Experience API", () => {
   it("deletes an experience", async () => {
     prismaMock.experience.findUnique.mockResolvedValue(experience);
     prismaMock.experience.delete.mockResolvedValue(experience);
-    const response = await request(app).delete(`/api/experiences/${experience.id}`);
+    const response = await request(app).delete(
+      `/api/experiences/${experience.id}`
+    );
     expect(response.status).toBe(204);
   });
 });

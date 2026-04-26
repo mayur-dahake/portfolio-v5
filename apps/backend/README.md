@@ -40,17 +40,17 @@ Alternatively, confirm directly in the Supabase dashboard under **Table Editor**
 
 ## Scripts
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Start dev server with hot reload |
-| `npm run build` | Compile TypeScript |
-| `npm run start` | Run compiled server |
-| `npm run test` | Run Jest unit tests (mocked Prisma) |
-| `npm run test:integration` | Run integration tests against real Supabase DB |
-| `npm run prisma:generate` | Generate Prisma client |
-| `npm run prisma:migrate -- --name init` | Run migration against dev DB |
-| `npm run prisma:migrate:prod` | Deploy migrations to production DB |
-| `npm run prisma:studio` | Open Prisma Studio browser UI |
+| Script                                  | Description                                    |
+| --------------------------------------- | ---------------------------------------------- |
+| `npm run dev`                           | Start dev server with hot reload               |
+| `npm run build`                         | Compile TypeScript                             |
+| `npm run start`                         | Run compiled server                            |
+| `npm run test`                          | Run Jest unit tests (mocked Prisma)            |
+| `npm run test:integration`              | Run integration tests against real Supabase DB |
+| `npm run prisma:generate`               | Generate Prisma client                         |
+| `npm run prisma:migrate -- --name init` | Run migration against dev DB                   |
+| `npm run prisma:migrate:prod`           | Deploy migrations to production DB             |
+| `npm run prisma:studio`                 | Open Prisma Studio browser UI                  |
 
 ## Integration Tests
 

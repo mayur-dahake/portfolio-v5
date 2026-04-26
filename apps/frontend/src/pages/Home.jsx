@@ -29,7 +29,11 @@ export default function Home() {
   }, [darkMode]);
 
   // GET /api/profile returns the singleton profile object directly
-  const { data: profile, isLoading: profileLoading, isError: profileError } = useQuery({
+  const {
+    data: profile,
+    isLoading: profileLoading,
+    isError: profileError
+  } = useQuery({
     queryKey: ["profile"],
     queryFn: () => api.get("/api/profile")
   });
@@ -54,22 +58,26 @@ export default function Home() {
   const projects = projResponse?.data ?? [];
   const skills = skillsResponse?.data ?? [];
 
-  const isLoading = profileLoading || expLoading || projLoading || skillsLoading;
+  const isLoading =
+    profileLoading || expLoading || projLoading || skillsLoading;
 
   if (isLoading) return <LoadingSkeleton />;
 
-  if (profileError) return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white gap-4">
-      <p className="text-2xl font-black">Failed to load portfolio</p>
-      <p className="text-white/40 font-mono text-sm">Please refresh the page or try again later.</p>
-      <button
-        onClick={() => window.location.reload()}
-        className="mt-4 px-6 py-3 border border-[#ff0080] text-[#ff0080] font-mono text-xs tracking-widest hover:bg-[#ff0080] hover:text-white transition-all"
-      >
-        RETRY
-      </button>
-    </div>
-  );
+  if (profileError)
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] text-white gap-4">
+        <p className="text-2xl font-black">Failed to load portfolio</p>
+        <p className="text-white/40 font-mono text-sm">
+          Please refresh the page or try again later.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 px-6 py-3 border border-[#ff0080] text-[#ff0080] font-mono text-xs tracking-widest hover:bg-[#ff0080] hover:text-white transition-all"
+        >
+          RETRY
+        </button>
+      </div>
+    );
 
   return (
     <div>
@@ -86,7 +94,11 @@ export default function Home() {
         <HeroSection profile={profile} darkMode={darkMode} />
         <AboutSection profile={profile} darkMode={darkMode} />
         <ExperienceSection experiences={experiences} darkMode={darkMode} />
-        <ProjectsSection projects={projects} darkMode={darkMode} authorName={profile?.fullName} />
+        <ProjectsSection
+          projects={projects}
+          darkMode={darkMode}
+          authorName={profile?.fullName}
+        />
         <SkillsSection skills={skills} darkMode={darkMode} />
         <ContactSection profile={profile} darkMode={darkMode} />
         <Footer profile={profile} darkMode={darkMode} />

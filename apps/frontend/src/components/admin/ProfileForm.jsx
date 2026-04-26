@@ -109,31 +109,70 @@ export default function ProfileForm() {
   };
 
   if (!profile) {
-    return <div className="text-white/30 font-mono text-sm p-8">Loading...</div>;
+    return (
+      <div className="text-white/30 font-mono text-sm p-8">Loading...</div>
+    );
   }
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <Field label="FULL NAME" value={profile.fullName} onChange={set("fullName")} />
-      <Field label="HEADLINE / TAGLINE" value={profile.headline} onChange={set("headline")} />
+      <Field
+        label="FULL NAME"
+        value={profile.fullName}
+        onChange={set("fullName")}
+      />
+      <Field
+        label="HEADLINE / TAGLINE"
+        value={profile.headline}
+        onChange={set("headline")}
+      />
       <Field label="BIO" value={profile.bio} onChange={set("bio")} multiline />
-      <Field label="EMAIL" value={profile.email} onChange={set("email")} type="email" />
+      <Field
+        label="EMAIL"
+        value={profile.email}
+        onChange={set("email")}
+        type="email"
+      />
       <Field label="PHONE" value={profile.phone} onChange={set("phone")} />
-      <Field label="LOCATION" value={profile.location} onChange={set("location")} />
-      <Field label="WEBSITE" value={profile.website} onChange={set("website")} />
+      <Field
+        label="LOCATION"
+        value={profile.location}
+        onChange={set("location")}
+      />
+      <Field
+        label="WEBSITE"
+        value={profile.website}
+        onChange={set("website")}
+      />
       <Field
         label="YEARS OF EXPERIENCE"
         value={String(profile.yearsExperience ?? "")}
         onChange={(val) => set("yearsExperience")(val)}
         type="number"
       />
-      <Field label="GITHUB URL" value={profile.github} onChange={set("github")} />
-      <Field label="LINKEDIN URL" value={profile.linkedin} onChange={set("linkedin")} />
-      <Field label="TWITTER / X URL" value={profile.twitterUrl} onChange={set("twitterUrl")} />
+      <Field
+        label="GITHUB URL"
+        value={profile.github}
+        onChange={set("github")}
+      />
+      <Field
+        label="LINKEDIN URL"
+        value={profile.linkedin}
+        onChange={set("linkedin")}
+      />
+      <Field
+        label="TWITTER / X URL"
+        value={profile.twitterUrl}
+        onChange={set("twitterUrl")}
+      />
 
       {/* Resume URL — plain text input (no file upload endpoint on backend) */}
       <div>
-        <Field label="RESUME URL" value={profile.resumeUrl} onChange={set("resumeUrl")} />
+        <Field
+          label="RESUME URL"
+          value={profile.resumeUrl}
+          onChange={set("resumeUrl")}
+        />
         {profile.resumeUrl && (
           <a
             href={profile.resumeUrl}
@@ -146,9 +185,7 @@ export default function ProfileForm() {
         )}
       </div>
 
-      {error && (
-        <p className="text-red-400 text-xs font-mono">{error}</p>
-      )}
+      {error && <p className="text-red-400 text-xs font-mono">{error}</p>}
 
       <button
         onClick={handleSave}

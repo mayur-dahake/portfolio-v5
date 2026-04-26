@@ -1,4 +1,7 @@
-import { makePaginationMeta, parsePaginationQuery } from "../src/common/utils/query";
+import {
+  makePaginationMeta,
+  parsePaginationQuery
+} from "../src/common/utils/query";
 
 describe("query utils", () => {
   it("parses pagination defaults", () => {

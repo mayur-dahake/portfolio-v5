@@ -26,7 +26,10 @@ export default function ProjectDetail() {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center gap-6 text-white">
         <p className="font-mono text-white/40">PROJECT NOT FOUND</p>
-        <Link to={createPageUrl("Home")} className="text-[#ff0080] font-mono text-sm hover:underline">
+        <Link
+          to={createPageUrl("Home")}
+          className="text-[#ff0080] font-mono text-sm hover:underline"
+        >
           ← BACK HOME
         </Link>
       </div>
@@ -66,8 +69,12 @@ export default function ProjectDetail() {
             </div>
           )}
 
-          <h1 className="text-4xl md:text-7xl font-black leading-[0.9] mb-6">{project.title}</h1>
-          <p className="text-xl text-white/60 max-w-2xl mb-8">{project.description}</p>
+          <h1 className="text-4xl md:text-7xl font-black leading-[0.9] mb-6">
+            {project.title}
+          </h1>
+          <p className="text-xl text-white/60 max-w-2xl mb-8">
+            {project.description}
+          </p>
 
           <div className="flex gap-4 mb-12">
             {project.liveUrl && (
@@ -103,7 +110,9 @@ export default function ProjectDetail() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <p className="text-xs font-mono text-white/30 tracking-widest mb-6">OVERVIEW</p>
+            <p className="text-xs font-mono text-white/30 tracking-widest mb-6">
+              OVERVIEW
+            </p>
             <p className="text-lg text-white/70 leading-relaxed whitespace-pre-line">
               {project.longDescription}
             </p>
@@ -117,7 +126,9 @@ export default function ProjectDetail() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <p className="text-xs font-mono text-white/30 tracking-widest mb-6">TECH STACK</p>
+            <p className="text-xs font-mono text-white/30 tracking-widest mb-6">
+              TECH STACK
+            </p>
             <div className="flex flex-wrap gap-3">
               {project.techStack.map((tech) => (
                 <span

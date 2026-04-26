@@ -12,15 +12,17 @@ describe("Experience API (integration)", () => {
   let createdId: string;
 
   it("POST /api/experiences - creates an experience and returns 201", async () => {
-    const response = await request(app).post("/api/experiences").send({
-      company: "Acme Corp",
-      title: "Backend Engineer",
-      description: "Built REST APIs",
-      techStack: ["node", "postgres"],
-      startDate: "2024-01-01T00:00:00.000Z",
-      isCurrent: true,
-      order: 1
-    });
+    const response = await request(app)
+      .post("/api/experiences")
+      .send({
+        company: "Acme Corp",
+        title: "Backend Engineer",
+        description: "Built REST APIs",
+        techStack: ["node", "postgres"],
+        startDate: "2024-01-01T00:00:00.000Z",
+        isCurrent: true,
+        order: 1
+      });
 
     expect(response.status).toBe(201);
     expect(response.body.id).toBeDefined();
@@ -37,9 +39,7 @@ describe("Experience API (integration)", () => {
   });
 
   it("GET /api/experiences?isCurrent=true - filters by isCurrent", async () => {
-    const response = await request(app).get(
-      "/api/experiences?isCurrent=true"
-    );
+    const response = await request(app).get("/api/experiences?isCurrent=true");
 
     expect(response.status).toBe(200);
     expect(
@@ -54,9 +54,9 @@ describe("Experience API (integration)", () => {
     expect(response.body.id).toBe(createdId);
   });
 
-  it("PUT /api/experiences/:id - updates experience and returns 200", async () => {
+  it("PATCH /api/experiences/:id - updates experience and returns 200", async () => {
     const response = await request(app)
-      .put(`/api/experiences/${createdId}`)
+      .patch(`/api/experiences/${createdId}`)
       .send({
         company: "Acme Corp",
         title: "Senior Backend Engineer",
@@ -72,9 +72,7 @@ describe("Experience API (integration)", () => {
   });
 
   it("DELETE /api/experiences/:id - deletes experience and returns 204", async () => {
-    const response = await request(app).delete(
-      `/api/experiences/${createdId}`
-    );
+    const response = await request(app).delete(`/api/experiences/${createdId}`);
 
     expect(response.status).toBe(204);
   });

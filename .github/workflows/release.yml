@@ -12,7 +12,7 @@ on:
 # ─── Prevent concurrent releases ────────────────────────────────────────────
 concurrency:
   group: release
-  cancel-in-progress: false   # Never cancel a running release mid-flight
+  cancel-in-progress: false # Never cancel a running release mid-flight
 
 jobs:
   release:
@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write      # push CHANGELOG.md + version tag
-      issues: write        # comment on issues when a fix is released
+      contents: write # push CHANGELOG.md + version tag
+      issues: write # comment on issues when a fix is released
       pull-requests: write # comment on PRs when included in a release
 
     steps:

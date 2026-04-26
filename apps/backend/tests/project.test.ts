@@ -78,7 +78,7 @@ describe("Project API", () => {
     });
 
     const response = await request(app)
-      .put(`/api/projects/${project.id}`)
+      .patch(`/api/projects/${project.id}`)
       .send({
         title: "Updated title",
         description: project.description,

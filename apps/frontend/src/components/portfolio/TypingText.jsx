@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-export default function TypingText({ text, delay = 0, speed = 45, className = '' }) {
-  const [displayed, setDisplayed] = useState('');
+export default function TypingText({
+  text,
+  delay = 0,
+  speed = 45,
+  className = ""
+}) {
+  const [displayed, setDisplayed] = useState("");
   const [started, setStarted] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -12,7 +17,7 @@ export default function TypingText({ text, delay = 0, speed = 45, className = ''
 
   useEffect(() => {
     if (!started || !text) return;
-    setDisplayed('');
+    setDisplayed("");
     setDone(false);
     let i = 0;
     const interval = setInterval(() => {

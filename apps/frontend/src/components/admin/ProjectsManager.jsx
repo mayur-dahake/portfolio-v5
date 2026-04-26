@@ -125,8 +125,16 @@ function ProjectForm({ project, onSave, onCancel }) {
       />
 
       <div className="grid md:grid-cols-2 gap-4">
-        <Field label="LIVE URL" value={data.liveUrl} onChange={set("liveUrl")} />
-        <Field label="REPO / GITHUB URL" value={data.repoUrl} onChange={set("repoUrl")} />
+        <Field
+          label="LIVE URL"
+          value={data.liveUrl}
+          onChange={set("liveUrl")}
+        />
+        <Field
+          label="REPO / GITHUB URL"
+          value={data.repoUrl}
+          onChange={set("repoUrl")}
+        />
       </div>
 
       <ArrayField

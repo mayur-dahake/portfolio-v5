@@ -58,7 +58,7 @@ describe("Skill API", () => {
     prismaMock.skill.findUnique.mockResolvedValue(skill);
     prismaMock.skill.update.mockResolvedValue({ ...skill, name: "Node.js" });
     const response = await request(app)
-      .put(`/api/skills/${skill.id}`)
+      .patch(`/api/skills/${skill.id}`)
       .send({ ...skill, name: "Node.js" });
     expect(response.status).toBe(200);
     expect(response.body.name).toBe("Node.js");

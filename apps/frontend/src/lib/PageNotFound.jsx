@@ -31,7 +31,9 @@ export default function PageNotFound() {
           transition={{ delay: 0.1 }}
         >
           <div className="w-12 h-px bg-white/20" />
-          <span className="text-xs font-mono text-white/40 tracking-widest">ERROR</span>
+          <span className="text-xs font-mono text-white/40 tracking-widest">
+            ERROR
+          </span>
           <div className="w-12 h-px bg-white/20" />
         </motion.div>
 
@@ -57,9 +59,7 @@ export default function PageNotFound() {
             PAGE NOT <span className="text-[#ff0080]">FOUND</span>
           </h2>
           {pageName && (
-            <p className="text-sm font-mono text-white/30">
-              /{pageName}
-            </p>
+            <p className="text-sm font-mono text-white/30">/{pageName}</p>
           )}
         </motion.div>
 
@@ -70,7 +70,7 @@ export default function PageNotFound() {
           transition={{ delay: 0.45 }}
         >
           <button
-            onClick={() => window.location.href = '/'}
+            onClick={() => (window.location.href = "/")}
             className="group inline-flex items-center gap-3 px-8 py-4 border border-white/20 text-white font-mono text-xs tracking-widest hover:border-[#ff0080] hover:bg-[#ff0080]/10 hover:text-[#ff0080] transition-all duration-300"
           >
             BACK TO HOME
