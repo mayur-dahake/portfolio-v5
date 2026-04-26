@@ -3,7 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { HttpStatus } from "../../common/constants/http";
 import { ApiError } from "../../common/errors/api-error";
 import { paginatedResponse } from "../../common/http/response";
-import { makePaginationMeta, parsePaginationQuery } from "../../common/utils/query";
+import {
+  makePaginationMeta,
+  parsePaginationQuery
+} from "../../common/utils/query";
 import { prisma } from "../../config/prisma";
 
 export const experienceService = {
@@ -16,16 +19,19 @@ export const experienceService = {
     const where: Prisma.ExperienceWhereInput = {};
 
     if (rawQuery.company) {
-      where.company = { contains: String(rawQuery.company), mode: "insensitive" };
+      where.company = {
+        contains: rawQuery.company as string,
+        mode: "insensitive"
+      };
     }
     if (rawQuery.title) {
-      where.title = { contains: String(rawQuery.title), mode: "insensitive" };
+      where.title = { contains: rawQuery.title as string, mode: "insensitive" };
     }
     if (rawQuery.isCurrent !== undefined) {
-      where.isCurrent = String(rawQuery.isCurrent) === "true";
+      where.isCurrent = rawQuery.isCurrent as boolean;
     }
     if (rawQuery.tech) {
-      where.techStack = { has: String(rawQuery.tech) };
+      where.techStack = { has: rawQuery.tech as string };
     }
 
     const [total, data] = await Promise.all([

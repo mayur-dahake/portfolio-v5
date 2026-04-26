@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import { asyncHandler } from "../../common/middleware/async-handler";
 import { validate } from "../../common/middleware/validate";
 import { projectController } from "./project.controller";
 import {
@@ -14,17 +13,17 @@ export const projectRouter = Router();
 projectRouter.post(
   "/",
   validate(createProjectSchema),
-  asyncHandler(projectController.create)
+  projectController.create
 );
 projectRouter.get(
   "/",
   validate(projectListQuerySchema, "query"),
-  asyncHandler(projectController.findAll)
+  projectController.findAll
 );
-projectRouter.get("/:id", asyncHandler(projectController.findById));
+projectRouter.get("/:id", projectController.findById);
 projectRouter.put(
   "/:id",
   validate(updateProjectSchema),
-  asyncHandler(projectController.update)
+  projectController.update
 );
-projectRouter.delete("/:id", asyncHandler(projectController.remove));
+projectRouter.delete("/:id", projectController.remove);

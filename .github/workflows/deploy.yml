@@ -1,0 +1,75 @@
+name: Deploy
+
+# ─── Trigger ────────────────────────────────────────────────────────────────
+# Runs ONLY when a version tag is pushed (e.g. v1.2.3).
+# semantic-release creates this tag automatically — you never push tags manually.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+# ─── Prevent two deployments running in parallel ────────────────────────────
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # ── Backend ────────────────────────────────────────────────────────────────
+  deploy-backend:
+    name: Deploy Backend → Render
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --workspace=apps/backend
+
+      - name: Build backend
+        run: npm run build --workspace=apps/backend
+
+      # Render auto-deploy is DISABLED on your service.
+      # The deploy hook triggers a fresh build + deploy on Render.
+      # Add RENDER_DEPLOY_HOOK_BACKEND secret in GitHub → Settings → Secrets.
+      - name: Trigger Render deploy
+        run: |
+          echo "Deploying version ${{ github.ref_name }} to Render..."
+          curl -s --fail -X POST "${{ secrets.RENDER_DEPLOY_HOOK_BACKEND }}"
+          echo "Deploy hook triggered successfully."
+
+  # ── Frontend (optional — remove this job if not using Vercel) ──────────────
+  deploy-frontend:
+    name: Deploy Frontend → Vercel
+    runs-on: ubuntu-latest
+    # Remove this job entirely if you're not deploying frontend via CI.
+    # Vercel's GitHub integration handles this automatically when enabled.
+    if: ${{ vars.DEPLOY_FRONTEND == 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel (production)
+        run: |
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
+            --yes \
+            apps/frontend
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

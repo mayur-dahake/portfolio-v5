@@ -11,13 +11,16 @@ export const validate =
     if (!result.success) {
       res.status(HttpStatus.BAD_REQUEST).json({
         message: "Validation failed",
-        errors: result.error.flatten()
+        errors: z.flattenError(result.error)
       });
       return;
     }
 
     if (target === "body") {
       req.body = result.data;
+    } else {
+      // Write coerced/transformed values back so handlers receive correct types
+      Object.assign(req.query, result.data);
     }
     next();
   };

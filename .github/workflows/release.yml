@@ -1,0 +1,52 @@
+name: Release
+
+# ─── Trigger ────────────────────────────────────────────────────────────────
+# Runs ONLY on pushes to main. Semantic-release decides whether a release
+# is warranted based on commit messages (feat/fix/breaking). If nothing
+# releasable is detected, the job exits cleanly with no side-effects.
+on:
+  push:
+    branches:
+      - main
+
+# ─── Prevent concurrent releases ────────────────────────────────────────────
+concurrency:
+  group: release
+  cancel-in-progress: false   # Never cancel a running release mid-flight
+
+jobs:
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write      # push CHANGELOG.md + version tag
+      issues: write        # comment on issues when a fix is released
+      pull-requests: write # comment on PRs when included in a release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history is required for semantic-release to compare commits
+          fetch-depth: 0
+          # Use a PAT so the version-bump commit can trigger deploy.yml
+          # If you only use GITHUB_TOKEN, the tag push will NOT trigger other workflows.
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run semantic-release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          # NPM_TOKEN is only needed if you publish to npm registry.
+          # Leave it unset if npmPublish is false in .release.config.js
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

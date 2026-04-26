@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import { asyncHandler } from "../../common/middleware/async-handler";
 import { validate } from "../../common/middleware/validate";
 import { experienceController } from "./experience.controller";
 import {
@@ -14,17 +13,17 @@ export const experienceRouter = Router();
 experienceRouter.post(
   "/",
   validate(createExperienceSchema),
-  asyncHandler(experienceController.create)
+  experienceController.create
 );
 experienceRouter.get(
   "/",
   validate(experienceListQuerySchema, "query"),
-  asyncHandler(experienceController.findAll)
+  experienceController.findAll
 );
-experienceRouter.get("/:id", asyncHandler(experienceController.findById));
+experienceRouter.get("/:id", experienceController.findById);
 experienceRouter.put(
   "/:id",
   validate(updateExperienceSchema),
-  asyncHandler(experienceController.update)
+  experienceController.update
 );
-experienceRouter.delete("/:id", asyncHandler(experienceController.remove));
+experienceRouter.delete("/:id", experienceController.remove);

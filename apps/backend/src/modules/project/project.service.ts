@@ -3,7 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { ApiError } from "../../common/errors/api-error";
 import { paginatedResponse } from "../../common/http/response";
 import { HttpStatus } from "../../common/constants/http";
-import { makePaginationMeta, parsePaginationQuery } from "../../common/utils/query";
+import {
+  makePaginationMeta,
+  parsePaginationQuery
+} from "../../common/utils/query";
 import { prisma } from "../../config/prisma";
 
 export const projectService = {
@@ -16,13 +19,13 @@ export const projectService = {
     const where: Prisma.ProjectWhereInput = {};
 
     if (rawQuery.title) {
-      where.title = { contains: String(rawQuery.title), mode: "insensitive" };
+      where.title = { contains: rawQuery.title as string, mode: "insensitive" };
     }
     if (rawQuery.tag) {
-      where.tags = { has: String(rawQuery.tag) };
+      where.tags = { has: rawQuery.tag as string };
     }
     if (rawQuery.tech) {
-      where.techStack = { has: String(rawQuery.tech) };
+      where.techStack = { has: rawQuery.tech as string };
     }
 
     const [total, data] = await Promise.all([

@@ -3,7 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { HttpStatus } from "../../common/constants/http";
 import { ApiError } from "../../common/errors/api-error";
 import { paginatedResponse } from "../../common/http/response";
-import { makePaginationMeta, parsePaginationQuery } from "../../common/utils/query";
+import {
+  makePaginationMeta,
+  parsePaginationQuery
+} from "../../common/utils/query";
 import { prisma } from "../../config/prisma";
 
 export const userService = {
@@ -16,10 +19,10 @@ export const userService = {
     const where: Prisma.UserWhereInput = {};
 
     if (rawQuery.email) {
-      where.email = { contains: String(rawQuery.email), mode: "insensitive" };
+      where.email = { contains: rawQuery.email as string, mode: "insensitive" };
     }
     if (rawQuery.role) {
-      where.role = { equals: String(rawQuery.role), mode: "insensitive" };
+      where.role = { equals: rawQuery.role as string };
     }
 
     const [total, data] = await Promise.all([

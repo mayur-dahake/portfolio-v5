@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import type { NextFunction, Request, Response } from "express";
-import { ZodError } from "zod";
+import { z, ZodError } from "zod";
 
 import { HttpStatus } from "../constants/http";
 import { ApiError } from "../errors/api-error";
@@ -22,14 +22,16 @@ export const errorHandler = (
   if (error instanceof ZodError) {
     res.status(HttpStatus.BAD_REQUEST).json({
       message: "Validation failed",
-      errors: error.flatten()
+      errors: z.flattenError(error)
     });
     return;
   }
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     if (error.code === "P2002") {
-      res.status(HttpStatus.CONFLICT).json({ message: "Duplicate value found" });
+      res
+        .status(HttpStatus.CONFLICT)
+        .json({ message: "Duplicate value found" });
       return;
     }
 

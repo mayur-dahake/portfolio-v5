@@ -3,7 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { HttpStatus } from "../../common/constants/http";
 import { ApiError } from "../../common/errors/api-error";
 import { paginatedResponse } from "../../common/http/response";
-import { makePaginationMeta, parsePaginationQuery } from "../../common/utils/query";
+import {
+  makePaginationMeta,
+  parsePaginationQuery
+} from "../../common/utils/query";
 import { prisma } from "../../config/prisma";
 
 export const skillService = {
@@ -16,11 +19,11 @@ export const skillService = {
     const where: Prisma.SkillWhereInput = {};
 
     if (rawQuery.name) {
-      where.name = { contains: String(rawQuery.name), mode: "insensitive" };
+      where.name = { contains: rawQuery.name as string, mode: "insensitive" };
     }
     if (rawQuery.category) {
       where.category = {
-        contains: String(rawQuery.category),
+        contains: rawQuery.category as string,
         mode: "insensitive"
       };
     }
