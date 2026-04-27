@@ -21,7 +21,7 @@ app.use(
 
       if (
         env.ALLOWED_ORIGINS.includes(origin) ||
-        origin.endsWith(".vercel.app") // 👈 allows Vercel preview deployments
+        origin.endsWith(".vercel.app")
       ) {
         return callback(null, true);
       }
