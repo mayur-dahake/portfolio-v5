@@ -43,10 +43,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Configure Git credentials
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/mayur-dahake/portfolio-v5.git
+
       - name: Run semantic-release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          # NPM_TOKEN is only needed if you publish to npm registry.
-          # Leave it unset if npmPublish is false in .release.config.js
-          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
