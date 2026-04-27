@@ -17,6 +17,7 @@ export default function TypingText({
 
   useEffect(() => {
     if (!started || !text) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayed("");
     setDone(false);
     let i = 0;

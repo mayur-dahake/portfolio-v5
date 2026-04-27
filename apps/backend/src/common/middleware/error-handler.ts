@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import type { NextFunction, Request, Response } from "express";
 import { z, ZodError } from "zod";
 
+import { logger } from "../../config/logger";
 import { HttpStatus } from "../constants/http";
 import { ApiError } from "../errors/api-error";
 
@@ -41,6 +42,7 @@ export const errorHandler = (
     }
   }
 
+  logger.error({ err: error }, "Unhandled error");
   res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
     message: "Internal server error"
   });

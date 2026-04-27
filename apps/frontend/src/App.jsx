@@ -7,7 +7,7 @@ import PageNotFound from "@/lib/PageNotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { pagesConfig } from "@/pages.config";
 
-const { Pages, Layout, mainPage } = pagesConfig;
+const { Pages, Layout } = pagesConfig;
 
 // Explicit URL paths per page name — keeps pages.config.js free of JSX/routing concerns
 const PAGE_PATHS = {

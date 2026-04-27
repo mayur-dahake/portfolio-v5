@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import {
-  Mail,
-  Github,
-  Linkedin,
   ArrowUpRight,
   Copy,
   Send,
   CheckCircle,
   AlertCircle
 } from "lucide-react";
-
-const XIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
+import { SiX, SiGithub } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa6";
 import {
   sanitizeText,
   sanitizeMultiline,
@@ -58,9 +52,9 @@ export default function ContactSection({ profile, darkMode }) {
   const formLoadTime = useState(() => Date.now())[0];
 
   const socialLinks = [
-    { icon: Github, url: profile?.github, label: "GitHub" },
-    { icon: Linkedin, url: profile?.linkedin, label: "LinkedIn" },
-    { icon: XIcon, url: profile?.twitterUrl, label: "X (Twitter)" }
+    { icon: SiGithub, url: profile?.github, label: "GitHub" },
+    { icon: FaLinkedinIn, url: profile?.linkedin, label: "LinkedIn" },
+    { icon: SiX, url: profile?.twitterUrl, label: "X (Twitter)" }
   ].filter((link) => link.url);
 
   const [copied, setCopied] = useState(false);
@@ -464,3 +458,13 @@ export default function ContactSection({ profile, darkMode }) {
     </section>
   );
 }
+
+ContactSection.propTypes = {
+  darkMode: PropTypes.bool,
+  profile: PropTypes.shape({
+    github: PropTypes.string,
+    linkedin: PropTypes.string,
+    twitterUrl: PropTypes.string,
+    email: PropTypes.string
+  })
+};

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion, useSpring } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function ScrollProgressBar() {
   const [progress, setProgress] = useState(0);

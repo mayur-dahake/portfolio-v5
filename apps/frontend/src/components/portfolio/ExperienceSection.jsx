@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
-import { Plus, Minus, MapPin, Calendar } from "lucide-react";
+import { Plus, Minus, Calendar } from "lucide-react";
 
 const formatDate = (dateStr) => {
   if (!dateStr) return "";
