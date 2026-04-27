@@ -7,13 +7,19 @@ import pinoHttp from "pino-http";
 
 import { errorHandler } from "./common/middleware/error-handler";
 import { notFound } from "./common/middleware/not-found";
+import { env } from "./config/env";
 import { logger } from "./config/logger";
 import { apiRouter } from "./routes";
 
 export const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: env.ALLOWED_ORIGINS,
+    credentials: true
+  })
+);
 app.use(compression());
 app.use(express.json());
 app.use(pinoHttp({ logger }));

@@ -8,7 +8,11 @@ const envSchema = z.object({
     .string()
     .default("5000")
     .transform((value) => Number(value))
-    .pipe(z.number().int().positive())
+    .pipe(z.number().int().positive()),
+  ALLOWED_ORIGINS: z
+    .string()
+    .default("http://localhost:5173")
+    .transform((value) => value.split(",").map((s) => s.trim()))
 });
 
 const parsed = envSchema.safeParse(process.env);
