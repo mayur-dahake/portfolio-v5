@@ -16,7 +16,18 @@ export const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: env.ALLOWED_ORIGINS,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (
+        env.ALLOWED_ORIGINS.includes(origin) ||
+        origin.endsWith(".vercel.app") // 👈 allows Vercel preview deployments
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true
   })
 );
