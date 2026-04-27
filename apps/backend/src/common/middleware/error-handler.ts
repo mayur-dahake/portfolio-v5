@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import type { NextFunction, Request, Response } from "express";
 import { z, ZodError } from "zod";
 
@@ -28,7 +28,7 @@ export const errorHandler = (
     return;
   }
 
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+  if (error instanceof PrismaClientKnownRequestError) {
     if (error.code === "P2002") {
       res
         .status(HttpStatus.CONFLICT)
