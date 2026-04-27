@@ -1,6 +1,6 @@
 /** @type {import('semantic-release').GlobalConfig} */
 module.exports = {
-  branches: ["main"],
+  branches: ["master"],
   tagFormat: "v${version}",
   plugins: [
     // 1. Analyse commits to determine release type (major / minor / patch)

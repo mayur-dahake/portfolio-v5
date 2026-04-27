@@ -7,7 +7,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - master
 
 # ─── Prevent concurrent releases ────────────────────────────────────────────
 concurrency:
