@@ -91,7 +91,11 @@ export default function Home() {
       >
         <ScrollProgressBar />
         <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
-        <HeroSection profile={profile} darkMode={darkMode} />
+        <HeroSection
+          profile={profile}
+          darkMode={darkMode}
+          projects={projects}
+        />
         <AboutSection profile={profile} darkMode={darkMode} />
         <ExperienceSection experiences={experiences} darkMode={darkMode} />
         <ProjectsSection

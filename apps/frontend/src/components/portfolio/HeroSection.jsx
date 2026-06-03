@@ -11,7 +11,7 @@ const XIcon = ({ className }) => (
   </svg>
 );
 
-export default function HeroSection({ profile, darkMode }) {
+export default function HeroSection({ profile, darkMode, projects = [] }) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [time, setTime] = useState(new Date());
 
@@ -87,6 +87,20 @@ export default function HeroSection({ profile, darkMode }) {
 
         {/* Main content */}
         <div className="pt-44 pb-24">
+          {/* Role label — visible immediately, no typing delay */}
+          <motion.div
+            className="mb-4 ml-1"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center gap-2 text-[10px] md:text-xs font-mono tracking-[0.3em] text-[#ff0080] uppercase border border-[#ff0080]/30 px-3 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff0080] animate-pulse" />
+              {profile.headline?.split("|")[0]?.trim() ||
+                "Full Stack Developer"}
+            </span>
+          </motion.div>
+
           {/* Massive typography */}
           <div className="relative mb-8">
             {nameParts.map((part, i) => (
@@ -101,7 +115,7 @@ export default function HeroSection({ profile, darkMode }) {
                   className={`text-[12vw] md:text-[12vw] leading-[0.85] font-black tracking-tighter ${
                     i % 2 === 0
                       ? "text-white"
-                      : "text-transparent [-webkit-text-stroke:1px_white] md:[-webkit-text-stroke:2px_white]"
+                      : "text-transparent [-webkit-text-stroke:1px_white]"
                   }`}
                   initial={{ y: 200 }}
                   animate={{ y: 0 }}
@@ -134,10 +148,14 @@ export default function HeroSection({ profile, darkMode }) {
               <p className="text-base md:text-xl text-white font-semibold tracking-wide mb-1">
                 <TypingText text={profile.headline} delay={900} speed={40} />
               </p>
-              <p className="text-sm md:text-base text-white/50 font-light leading-relaxed">
-                Specialized in ERP systems, performance optimization & secure
-                REST APIs.
-              </p>
+              {profile.bio && (
+                <p className="text-sm md:text-base text-white/50 font-light leading-relaxed">
+                  {profile.bio.length > 120
+                    ? profile.bio.slice(0, profile.bio.lastIndexOf(" ", 120)) +
+                      "…"
+                    : profile.bio}
+                </p>
+              )}
             </div>
           </motion.div>
 
@@ -186,14 +204,16 @@ export default function HeroSection({ profile, darkMode }) {
                   </div>
                 </div>
               )}
-              <div>
-                <div className="text-4xl md:text-7xl font-black text-white">
-                  ∞
+              {projects.length > 0 && (
+                <div>
+                  <div className="text-4xl md:text-7xl font-black text-white">
+                    <AnimatedCounter target={projects.length} />+
+                  </div>
+                  <div className="text-[10px] md:text-xs font-mono text-white/40 tracking-widest">
+                    PROJECTS
+                  </div>
                 </div>
-                <div className="text-[10px] md:text-xs font-mono text-white/40 tracking-widest">
-                  CURIOSITY
-                </div>
-              </div>
+              )}
             </motion.div>
 
             {/* Social links - vertical */}

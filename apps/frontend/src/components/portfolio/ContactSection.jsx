@@ -114,14 +114,19 @@ export default function ContactSection({ profile, darkMode }) {
     setIsSubmitting(true);
     recordSubmission();
     try {
+      const toEmail = profile?.email || "mayurdahake13@gmail.com";
       const subject = encodeURIComponent(
         `Portfolio Contact: Message from ${clean.name}`
       );
       const body = encodeURIComponent(
         `Name: ${clean.name}\nEmail: ${clean.email}\n\nMessage:\n${clean.message}\n\n---\nSent from portfolio contact form`
       );
-      window.location.href = `mailto:mayurdahake13@gmail.com?subject=${subject}&body=${body}`;
-      setSubmitStatus("success");
+      // Open in a new tab so the user stays on the portfolio page
+      window.open(
+        `mailto:${toEmail}?subject=${subject}&body=${body}`,
+        "_blank"
+      );
+      setSubmitStatus("email_opened");
       setFormData({ name: "", email: "", message: "" });
     } catch {
       setSubmitStatus("error");
@@ -248,12 +253,17 @@ export default function ContactSection({ profile, darkMode }) {
             SEND A MESSAGE
           </p>
 
-          {submitStatus === "success" && (
-            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 flex items-center gap-3">
-              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-              <p className="text-green-400 text-sm">
-                Message sent! I'll get back to you soon.
-              </p>
+          {submitStatus === "email_opened" && (
+            <div className="mb-6 p-4 bg-[#ff0080]/10 border border-[#ff0080]/30 flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-[#ff0080] flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-[#ff0080] text-sm font-medium">
+                  Your email client has opened with the message pre-filled.
+                </p>
+                <p className="text-white/40 text-xs mt-1 font-mono">
+                  Please hit send from your email app to complete delivery.
+                </p>
+              </div>
             </div>
           )}
           {submitStatus === "error" && (

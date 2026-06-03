@@ -222,7 +222,7 @@ export default function ExperienceSection({ experiences, darkMode }) {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Section marker */}
         <motion.div
-          className="flex items-center gap-4 mb-12 md:mb-20"
+          className="flex items-center gap-4 mb-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -242,6 +242,18 @@ export default function ExperienceSection({ experiences, darkMode }) {
           </span>
         </motion.div>
 
+        {/* Large section heading */}
+        <motion.h2
+          className={`text-5xl md:text-8xl font-black leading-none mb-16 md:mb-24 ${darkMode ? "text-white" : "text-black"}`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          WHERE I'VE
+          <span className="text-[#ff0080]"> WORKED</span>
+        </motion.h2>
+
         {/* Timeline — max height with scroll for many entries */}
         <div className="relative">
           {/* Vertical line */}
@@ -253,14 +265,7 @@ export default function ExperienceSection({ experiences, darkMode }) {
             transition={{ duration: 1, ease: "easeOut" }}
           />
 
-          <div
-            className="space-y-3 overflow-y-auto pr-2"
-            style={{
-              maxHeight: "520px",
-              scrollbarWidth: "thin",
-              scrollbarColor: "#ff0080 transparent"
-            }}
-          >
+          <div className="space-y-3">
             {sortedExperiences.map((exp, index) => (
               <TimelineItem
                 key={exp.id}

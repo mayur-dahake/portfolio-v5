@@ -64,15 +64,29 @@ export default function SkillsSection({ skills, darkMode }) {
       id="skills"
       className={`py-16 md:py-32 px-4 md:px-12 lg:px-24 relative overflow-hidden ${darkMode ? "bg-[#0a0a0a]" : "bg-[#f0f0ea]"}`}
     >
-      {/* Animated background grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
+      {/* CSS-based animated grid — single element, zero JS animation loops */}
+      <style>{`
+        @keyframes skillGridPulse {
+          0%, 100% { opacity: 0.08; }
+          50%       { opacity: 0.22; }
+        }
+        .skill-grid-line {
+          position: absolute;
+          top: 0; bottom: 0;
+          width: 1px;
+          background: linear-gradient(to bottom, transparent, #ff0080, transparent);
+          animation: skillGridPulse 3s ease-in-out infinite;
+        }
+      `}</style>
+      <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
-          <motion.div
+          <div
             key={i}
-            className="absolute w-px h-full bg-gradient-to-b from-transparent via-[#ff0080] to-transparent"
-            style={{ left: `${(i + 1) * 5}%` }}
-            animate={{ opacity: [0.1, 0.5, 0.1] }}
-            transition={{ duration: 3, delay: i * 0.2, repeat: Infinity }}
+            className="skill-grid-line"
+            style={{
+              left: `${(i + 1) * 5}%`,
+              animationDelay: `${i * 0.2}s`
+            }}
           />
         ))}
       </div>

@@ -2,7 +2,7 @@
 const PAGE_URL_MAP = {
   Home: "/",
   Contact: "/contact",
-  Admin: "/admin",
+  Admin: "/backstage",
   ProjectDetail: "/projects"
 };
 

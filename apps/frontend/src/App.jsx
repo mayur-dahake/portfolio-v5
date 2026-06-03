@@ -14,7 +14,7 @@ const PAGE_PATHS = {
   Home: "/",
   Contact: "/contact",
   ProjectDetail: "/projects/:id",
-  Admin: "/admin"
+  Admin: "/backstage"
 };
 
 const LayoutWrapper = ({ children, currentPageName }) =>

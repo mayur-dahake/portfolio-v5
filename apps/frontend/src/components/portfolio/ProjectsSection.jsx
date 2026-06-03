@@ -82,33 +82,95 @@ export default function ProjectsSection({ projects, darkMode, authorName }) {
                     className={`grid md:grid-cols-12 gap-8 items-center cursor-pointer group ${index % 2 === 1 ? "md:text-right" : ""}`}
                     onClick={() => setSelectedProject(project)}
                   >
-                    {/* Placeholder image */}
+                    {/* Premium project card visual */}
                     <div
                       className={`md:col-span-7 ${index % 2 === 1 ? "md:order-2" : ""}`}
                     >
-                      <div className="relative overflow-hidden">
+                      <div className="relative overflow-hidden group/card">
+                        {/* Gradient background — unique hue per project */}
                         <div
-                          className={`w-full aspect-[4/3] flex items-center justify-center ${darkMode ? "bg-white/5" : "bg-gradient-to-br from-black/5 to-black/10"}`}
+                          className="w-full aspect-[4/3] relative"
+                          style={{
+                            background: [
+                              "linear-gradient(135deg, #1a0a1e 0%, #2d0a3d 40%, #0a0a1a 100%)",
+                              "linear-gradient(135deg, #0a1a0a 0%, #0d2d1a 40%, #0a0a1a 100%)",
+                              "linear-gradient(135deg, #1a0a0a 0%, #2d1a0a 40%, #1a0a1a 100%)",
+                              "linear-gradient(135deg, #0a0a1a 0%, #0a1a2d 40%, #0a1a1a 100%)"
+                            ][index % 4]
+                          }}
                         >
+                          {/* Dot-grid pattern overlay */}
+                          <div
+                            className="absolute inset-0 opacity-20"
+                            style={{
+                              backgroundImage:
+                                "radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                              backgroundSize: "24px 24px"
+                            }}
+                          />
+
+                          {/* Accent glow */}
+                          <div
+                            className="absolute inset-0 opacity-30"
+                            style={{
+                              background:
+                                "radial-gradient(ellipse at 30% 50%, #ff008040 0%, transparent 60%)"
+                            }}
+                          />
+
+                          {/* Large watermark initial */}
                           <span
-                            className={`text-6xl font-black ${darkMode ? "text-white/10" : "text-black/10"}`}
+                            className="absolute bottom-4 right-6 text-[10rem] font-black leading-none select-none pointer-events-none"
+                            style={{ color: "rgba(255,255,255,0.04)" }}
                           >
                             {project.title?.charAt(0)}
                           </span>
-                        </div>
 
-                        {/* Floating number */}
-                        <div
-                          className={`absolute -top-4 ${index % 2 === 1 ? "-left-4" : "-right-4"} text-8xl font-black text-[#ff0080]/20`}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </div>
+                          {/* Tech stack preview — top-left */}
+                          {project.techStack?.slice(0, 3).length > 0 && (
+                            <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                              {project.techStack.slice(0, 3).map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-2 py-0.5 text-[10px] font-mono text-white/60 border border-white/10 bg-black/30 backdrop-blur-sm"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                              {project.techStack.length > 3 && (
+                                <span className="px-2 py-0.5 text-[10px] font-mono text-[#ff0080]/60 border border-[#ff0080]/20 bg-black/30">
+                                  +{project.techStack.length - 3}
+                                </span>
+                              )}
+                            </div>
+                          )}
 
-                        {/* Click indicator */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="px-4 py-2 bg-black/80 text-white text-sm font-mono">
-                            CLICK TO VIEW DETAILS
-                          </span>
+                          {/* Floating index number */}
+                          <div
+                            className={`absolute -top-4 ${index % 2 === 1 ? "-left-4" : "-right-4"} text-8xl font-black text-[#ff0080]/20 select-none pointer-events-none`}
+                          >
+                            {String(index + 1).padStart(2, "0")}
+                          </div>
+
+                          {/* Hover overlay */}
+                          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-all duration-300">
+                            <span className="flex items-center gap-2 px-5 py-2.5 border border-white/30 text-white text-xs font-mono tracking-widest">
+                              VIEW DETAILS
+                              <svg
+                                className="w-3 h-3"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M7 17L17 7M17 7H7M17 7v10"
+                                />
+                              </svg>
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>

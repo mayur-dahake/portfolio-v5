@@ -36,9 +36,27 @@ const architecturePillars = [
 export default function AboutSection({ profile, darkMode }) {
   if (!profile) return null;
 
-  const words = profile.bio?.split(" ").filter(Boolean) || [];
-  // Show first ~15 words in the hero statement, rest in detail — guard against short bios
-  const splitAt = Math.min(15, Math.max(0, Math.floor(words.length * 0.5)));
+  const bio = profile.bio || "";
+  // Split at the nearest sentence boundary — find the first period followed by a space
+  // that falls after the first 30% of the text. Fall back to midpoint word split.
+  const sentenceBreak = (() => {
+    const minIdx = Math.floor(bio.length * 0.3);
+    const periodIdx = bio.indexOf(". ", minIdx);
+    if (periodIdx !== -1 && periodIdx < bio.length * 0.75) {
+      return {
+        lead: bio.slice(0, periodIdx + 1),
+        rest: bio.slice(periodIdx + 2).trim()
+      };
+    }
+    // Fallback: split by words at midpoint
+    const words = bio.split(" ").filter(Boolean);
+    const mid = Math.floor(words.length * 0.5);
+    return {
+      lead: words.slice(0, mid).join(" "),
+      rest: words.slice(mid).join(" ")
+    };
+  })();
+  const { lead, rest } = sentenceBreak;
 
   return (
     <section
@@ -85,7 +103,7 @@ export default function AboutSection({ profile, darkMode }) {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              {words.slice(0, splitAt).map((word, i) => (
+              {lead.split(" ").map((word, i) => (
                 <motion.span
                   key={i}
                   className={i % 7 === 3 ? "text-[#ff0080] italic" : ""}
@@ -109,7 +127,7 @@ export default function AboutSection({ profile, darkMode }) {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
             >
-              {words.slice(splitAt).join(" ")}
+              {rest}
             </motion.p>
 
             {/* Info cards */}
@@ -185,23 +203,49 @@ export default function AboutSection({ profile, darkMode }) {
               )}
             </div>
 
-            {/* Resume button */}
-            {profile.resumeUrl && (
-              <motion.a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-3 mt-12 px-6 py-4 font-medium hover:bg-[#ff0080] transition-colors group ${darkMode ? "bg-white text-black hover:text-white" : "bg-black text-white"}`}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-              >
-                <Download className="w-4 h-4" />
-                Download CV
-                <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
-              </motion.a>
-            )}
+            {/* Resume button / fallback CTA */}
+            <motion.div
+              className="mt-12"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8 }}
+            >
+              {profile.resumeUrl ? (
+                <a
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-3 px-6 py-4 font-medium hover:bg-[#ff0080] transition-colors group ${
+                    darkMode
+                      ? "bg-white text-black hover:text-white"
+                      : "bg-black text-white"
+                  }`}
+                >
+                  <Download className="w-4 h-4" />
+                  Download CV
+                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
+                </a>
+              ) : (
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className={`inline-flex items-center gap-3 px-6 py-4 font-medium border hover:border-[#ff0080] hover:text-[#ff0080] transition-colors group ${
+                    darkMode
+                      ? "border-white/30 text-white/70"
+                      : "border-black/30 text-black/70"
+                  }`}
+                >
+                  Get In Touch
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+              )}
+            </motion.div>
           </div>
         </div>
 

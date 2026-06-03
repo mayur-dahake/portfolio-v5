@@ -32,15 +32,19 @@ export function sanitizeMultiline(value) {
   );
 }
 
-// Only allow http/https URLs
+// Only allow http/https URLs; auto-prepend https:// if the protocol is missing
 export function sanitizeUrl(value) {
   if (!value) return "";
   const trimmed = value.trim();
   if (!trimmed) return "";
+  // Auto-prepend https:// for bare domains like "www.linkedin.com/..."
+  const normalized = /^https?:\/\//i.test(trimmed)
+    ? trimmed
+    : `https://${trimmed}`;
   try {
-    const url = new URL(trimmed);
+    const url = new URL(normalized);
     if (!["http:", "https:"].includes(url.protocol)) return "";
-    return trimmed;
+    return normalized;
   } catch {
     return "";
   }
