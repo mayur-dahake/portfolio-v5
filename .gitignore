@@ -8,3 +8,5 @@ coverage/
 *.log
 mayur-devhub/
 node_modules
+
+._*

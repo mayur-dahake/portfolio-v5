@@ -11,7 +11,7 @@ const envSchema = z.object({
     .pipe(z.number().int().positive()),
   ALLOWED_ORIGINS: z
     .string()
-    .default("http://localhost:5173")
+    .default("http://localhost:5173,http://localhost:3000")
     .transform((value) => value.split(",").map((s) => s.trim()))
 });
 
