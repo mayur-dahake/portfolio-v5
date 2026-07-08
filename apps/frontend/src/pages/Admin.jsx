@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { User, Briefcase, Code, BookOpen, ArrowLeft } from "lucide-react";
+import {
+  User,
+  Briefcase,
+  Code,
+  BookOpen,
+  ArrowLeft,
+  Github,
+  LogOut
+} from "lucide-react";
 import { createPageUrl } from "@/utils";
 import ProfileForm from "@/components/admin/ProfileForm";
 import ProjectsManager from "@/components/admin/ProjectsManager";
 import SkillsManager from "@/components/admin/SkillsManager";
 import ExperienceManager from "@/components/admin/ExperienceManager";
 
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? "admin";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 const tabs = [
   { id: "profile", label: "Profile", icon: User },
@@ -16,53 +24,94 @@ const tabs = [
   { id: "skills", label: "Skills", icon: BookOpen }
 ];
 
-function PasswordGate({ onUnlock }) {
-  const [input, setInput] = useState("");
-  const [error, setError] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input === ADMIN_PASSWORD) {
-      onUnlock();
-    } else {
-      setError(true);
-      setTimeout(() => setError(false), 1500);
-    }
+function GitHubLoginGate() {
+  const handleLogin = () => {
+    // Redirect to backend endpoint, passing current location as callback target
+    const currentUrl = window.location.href.split("?")[0];
+    window.location.href = `${API_BASE_URL}/api/auth/github?redirect_uri=${encodeURIComponent(currentUrl)}`;
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="space-y-4 w-72">
-        <p className="text-xs font-mono text-white/40 tracking-widest text-center">
-          ADMIN ACCESS
-        </p>
-        <input
-          type="password"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter password"
-          autoFocus
-          className={`w-full bg-white/5 border px-4 py-3 text-white text-sm font-mono outline-none transition-colors placeholder:text-white/20 ${
-            error ? "border-red-500" : "border-white/10 focus:border-[#ff0080]"
-          }`}
-        />
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center relative overflow-hidden">
+      {/* Decorative radial glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#ff0080]/5 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 w-full max-w-sm p-8 bg-white/[0.02] border border-white/5 backdrop-blur-xl rounded-lg text-center space-y-6">
+        <div className="space-y-2">
+          <p className="text-[10px] font-mono text-[#ff0080] tracking-[0.3em] uppercase">
+            Admin Portal
+          </p>
+          <h1 className="text-2xl font-black text-white tracking-tight">
+            Backstage Access
+          </h1>
+          <p className="text-xs text-white/40 leading-relaxed font-mono">
+            Authenticate with GitHub to manage your portfolio content.
+          </p>
+        </div>
+
         <button
-          type="submit"
-          className="w-full py-3 bg-[#ff0080] text-white font-mono text-xs tracking-widest hover:bg-[#ff0080]/80 transition-colors"
+          onClick={handleLogin}
+          className="w-full flex items-center justify-center gap-3 py-3.5 bg-white text-black hover:bg-white/90 font-mono text-xs tracking-wider transition-all duration-200 hover:scale-[1.01]"
         >
-          ENTER
+          <Github className="w-4 h-4" />
+          LOG IN WITH GITHUB
         </button>
-      </form>
+
+        <div>
+          <a
+            href={createPageUrl("Home")}
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-white/30 hover:text-white/60 transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back to Portfolio
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function Admin() {
   const [activeTab, setActiveTab] = useState("profile");
-  const [authorized, setAuthorized] = useState(false);
+  const [authorized, setAuthorized] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const storedToken = localStorage.getItem("admin_token");
+    if (storedToken) return true;
+
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("admin_token", token);
+      return true;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const error = params.get("error");
+
+    if (error === "unauthorized_user") {
+      alert(
+        "Access Denied: Only the owner's GitHub account is allowed to log in."
+      );
+      window.history.replaceState({}, document.title, window.location.pathname);
+      return;
+    }
+
+    if (token) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("admin_token");
+    setAuthorized(false);
+  };
 
   if (!authorized) {
-    return <PasswordGate onUnlock={() => setAuthorized(true)} />;
+    return <GitHubLoginGate />;
   }
 
   return (
@@ -82,10 +131,20 @@ export default function Admin() {
             ADMIN PANEL
           </span>
         </div>
-        <div
-          className="w-2 h-2 bg-[#ff0080] rounded-full animate-pulse"
-          title="Admin mode"
-        />
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-1.5 text-white/40 hover:text-[#ff0080] transition-colors text-xs font-mono"
+            title="Log Out"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            LOGOUT
+          </button>
+          <div
+            className="w-2 h-2 bg-[#ff0080] rounded-full animate-pulse"
+            title="Admin mode"
+          />
+        </div>
       </div>
 
       <div className="pt-16 flex min-h-screen">

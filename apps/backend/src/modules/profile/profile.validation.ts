@@ -31,8 +31,8 @@ const optInt = z.preprocess(
 );
 
 export const createProfileSchema = z.object({
-  fullName: optStr(100),
-  headline: optStr(200),
+  fullName: z.string().trim().min(1).max(100),
+  headline: z.string().trim().min(1).max(200),
   bio: optStr(2000),
   location: optStr(100),
   email: optEmail,
