@@ -15,20 +15,11 @@ export const projectsData: Prisma.ProjectCreateManyInput[] = [
   {
     title: "SpeedoNix",
     description:
-      "A self-hosted, privacy-first network speed tester — built as a clean alternative to Fast.com and Speedtest.net.",
+      "A sleek web app that measures internet speed with real-time animation.",
     longDescription:
-      "SpeedoNix is a full‑stack, self‑hosted internet speed testing application. It measures real network throughput across your own infrastructure — with no third‑party data collection, ads, or telemetry. It features multi-stream parallel measurements, unloaded/loaded latency tracking (ping, jitter, and bufferbloat grading), packet loss detection, and an interactive SVG node map. The speed testing engine runs inside an isolated Web Worker thread to ensure smooth UI animations.",
-    techStack: [
-      "Angular",
-      "Node.js",
-      "Express",
-      "Docker",
-      "TypeScript",
-      "SCSS",
-      "WebSockets",
-      "Prometheus"
-    ],
-    tags: ["Web App", "Performance", "Tools", "Open Source"],
+      "SpeedoNix measures latency, download, and upload speeds with real-time visualization using Angular and TypeScript. Designed for accuracy and smooth UI performance.",
+    techStack: ["Angular", "TypeScript", "Node.js", "HTML", "SCSS"],
+    tags: ["Web App", "Performance", "Tools"],
     featured: true,
     order: 2
   },

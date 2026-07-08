@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ArrowUpRight, ChevronDown, Filter } from "lucide-react";
 import ProjectModal from "./ProjectModal";
-import speedonixImg from "../../assets/projects/speedonix.png";
 
 const PAGE_SIZE = 4;
 
@@ -88,19 +87,16 @@ export default function ProjectsSection({ projects, darkMode, authorName }) {
                       className={`md:col-span-7 ${index % 2 === 1 ? "md:order-2" : ""}`}
                     >
                       <div className="relative overflow-hidden group/card">
-                        {/* Gradient or Image background — unique per project */}
+                        {/* Gradient background — unique hue per project */}
                         <div
-                          className="w-full aspect-[4/3] relative bg-cover bg-center overflow-hidden"
+                          className="w-full aspect-[4/3] relative"
                           style={{
-                            backgroundImage:
-                              project.title?.toLowerCase() === "speedonix"
-                                ? `url(${speedonixImg})`
-                                : [
-                                    "linear-gradient(135deg, #1a0a1e 0%, #2d0a3d 40%, #0a0a1a 100%)",
-                                    "linear-gradient(135deg, #0a1a0a 0%, #0d2d1a 40%, #0a0a1a 100%)",
-                                    "linear-gradient(135deg, #1a0a0a 0%, #2d1a0a 40%, #1a0a1a 100%)",
-                                    "linear-gradient(135deg, #0a0a1a 0%, #0a1a2d 40%, #0a1a1a 100%)"
-                                  ][index % 4]
+                            background: [
+                              "linear-gradient(135deg, #1a0a1e 0%, #2d0a3d 40%, #0a0a1a 100%)",
+                              "linear-gradient(135deg, #0a1a0a 0%, #0d2d1a 40%, #0a0a1a 100%)",
+                              "linear-gradient(135deg, #1a0a0a 0%, #2d1a0a 40%, #1a0a1a 100%)",
+                              "linear-gradient(135deg, #0a0a1a 0%, #0a1a2d 40%, #0a1a1a 100%)"
+                            ][index % 4]
                           }}
                         >
                           {/* Dot-grid pattern overlay */}
