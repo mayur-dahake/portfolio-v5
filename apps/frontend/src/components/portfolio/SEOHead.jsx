@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export default function SEOHead({ profile, project = null }) {
   useEffect(() => {
     // Base SEO data
-    const siteName = profile?.name || "Developer Portfolio";
+    const siteName = profile?.name || "Mayur Dahake";
     const defaultDescription =
       profile?.bio ||
       profile?.tagline ||
@@ -13,7 +13,7 @@ export default function SEOHead({ profile, project = null }) {
     // Dynamic data based on context (project detail vs homepage)
     const title = project
       ? `${project.title} | ${siteName}`
-      : `${siteName} - ${profile?.tagline || "Software Developer"}`;
+      : `${siteName} - ${profile?.tagline || "Portfolio"}`;
 
     const description = project
       ? project.longDescription || project.description
