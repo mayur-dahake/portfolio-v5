@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { api } from "@/api/apiClient";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -36,18 +37,11 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      // No backend email service — open the default mail client with pre-filled content
-      const subject = encodeURIComponent(
-        `Portfolio Contact: Message from ${formData.name}`
-      );
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
-      window.location.href = `mailto:mayurdahake13@gmail.com?subject=${subject}&body=${body}`;
-
+      await api.post("/api/contact", formData);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", message: "" });
-    } catch {
+    } catch (error) {
+      console.error("Failed to send message:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);

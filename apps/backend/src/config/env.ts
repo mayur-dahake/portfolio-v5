@@ -19,7 +19,13 @@ const envSchema = z.object({
     .string()
     .default("http://localhost:4000/api/auth/github/callback"),
   ALLOWED_GITHUB_USERNAME: z.string().default(""),
-  JWT_SECRET: z.string().default("super_secret_dev_key")
+  JWT_SECRET: z.string().default("super_secret_dev_key"),
+  SMTP_HOST: z.string().default("smtp.gmail.com"),
+  SMTP_PORT: z.string().default("465"),
+  SMTP_USER: z.string().default(""),
+  SMTP_PASS: z.string().default(""),
+  EMAIL_FROM: z.string().default("dahakemayur13@gmail.com"),
+  CONTACT_EMAIL_TO: z.string().default("dahakemayur13@gmail.com")
 });
 
 const parsed = envSchema.safeParse(process.env);

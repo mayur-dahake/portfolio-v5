@@ -115,7 +115,7 @@ export default function HeroSection({ profile, darkMode, projects = [] }) {
                   className={`text-[12vw] md:text-[12vw] leading-[0.85] font-black tracking-tighter ${
                     i % 2 === 0
                       ? "text-white"
-                      : "text-transparent [-webkit-text-stroke:1px_white]"
+                      : "text-transparent [-webkit-text-stroke:0.5px_white]"
                   }`}
                   initial={{ y: 200 }}
                   animate={{ y: 0 }}

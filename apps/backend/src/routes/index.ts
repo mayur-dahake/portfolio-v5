@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { authRouter } from "./auth.routes";
+import { contactRouter } from "./contact.routes";
 import { requireAuth } from "../common/middleware/auth.middleware";
 import { experienceRouter } from "../modules/experience/experience.routes";
 import { profileRouter } from "../modules/profile/profile.routes";
@@ -11,7 +12,7 @@ import { userRouter } from "../modules/user/user.routes";
 export const apiRouter = Router();
 
 apiRouter.use("/auth", authRouter);
-
+apiRouter.use("/contact", contactRouter);
 // Secure all data-modifying routes (require authentication for non-GET requests)
 apiRouter.use(requireAuth);
 

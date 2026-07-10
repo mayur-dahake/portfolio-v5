@@ -15,6 +15,7 @@ import {
   sanitizeMultiline,
   validateContactForm
 } from "@/components/utils/sanitize";
+import { api } from "@/api/apiClient";
 
 // Client-side rate limit: max 3 submissions per 10 minutes
 const RATE_LIMIT_MAX = 3;
@@ -114,19 +115,8 @@ export default function ContactSection({ profile, darkMode }) {
     setIsSubmitting(true);
     recordSubmission();
     try {
-      const toEmail = profile?.email || "mayurdahake13@gmail.com";
-      const subject = encodeURIComponent(
-        `Portfolio Contact: Message from ${clean.name}`
-      );
-      const body = encodeURIComponent(
-        `Name: ${clean.name}\nEmail: ${clean.email}\n\nMessage:\n${clean.message}\n\n---\nSent from portfolio contact form`
-      );
-      // Open in a new tab so the user stays on the portfolio page
-      window.open(
-        `mailto:${toEmail}?subject=${subject}&body=${body}`,
-        "_blank"
-      );
-      setSubmitStatus("email_opened");
+      await api.post("/api/contact", clean);
+      setSubmitStatus("success");
       setFormData({ name: "", email: "", message: "" });
     } catch {
       setSubmitStatus("error");
@@ -253,15 +243,15 @@ export default function ContactSection({ profile, darkMode }) {
             SEND A MESSAGE
           </p>
 
-          {submitStatus === "email_opened" && (
-            <div className="mb-6 p-4 bg-[#ff0080]/10 border border-[#ff0080]/30 flex items-start gap-3">
-              <CheckCircle className="w-5 h-5 text-[#ff0080] flex-shrink-0 mt-0.5" />
+          {submitStatus === "success" && (
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 flex items-start gap-3">
+              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-[#ff0080] text-sm font-medium">
-                  Your email client has opened with the message pre-filled.
+                <p className="text-green-500 text-sm font-medium">
+                  Message sent successfully!
                 </p>
                 <p className="text-white/40 text-xs mt-1 font-mono">
-                  Please hit send from your email app to complete delivery.
+                  Thank you for reaching out. I'll get back to you soon.
                 </p>
               </div>
             </div>
@@ -326,11 +316,15 @@ export default function ContactSection({ profile, darkMode }) {
                 }
                 onBlur={() => handleBlur("name")}
                 className={`px-4 py-3 text-sm font-mono border bg-transparent outline-none focus:border-[#ff0080] transition-colors ${
+                  darkMode
+                    ? "text-white placeholder:text-white/30"
+                    : "text-black placeholder:text-black/30"
+                } ${
                   fieldErrors.name
                     ? "border-red-500"
                     : darkMode
-                      ? "border-white/20 text-white placeholder:text-white/30"
-                      : "border-black/20 text-black placeholder:text-black/30"
+                      ? "border-white/20"
+                      : "border-black/20"
                 }`}
               />
               {fieldErrors.name && (
@@ -361,11 +355,15 @@ export default function ContactSection({ profile, darkMode }) {
                 }
                 onBlur={() => handleBlur("email")}
                 className={`px-4 py-3 text-sm font-mono border bg-transparent outline-none focus:border-[#ff0080] transition-colors ${
+                  darkMode
+                    ? "text-white placeholder:text-white/30"
+                    : "text-black placeholder:text-black/30"
+                } ${
                   fieldErrors.email
                     ? "border-red-500"
                     : darkMode
-                      ? "border-white/20 text-white placeholder:text-white/30"
-                      : "border-black/20 text-black placeholder:text-black/30"
+                      ? "border-white/20"
+                      : "border-black/20"
                 }`}
               />
               {fieldErrors.email && (
@@ -395,11 +393,15 @@ export default function ContactSection({ profile, darkMode }) {
                 }
                 onBlur={() => handleBlur("message")}
                 className={`px-4 py-3 text-sm font-mono border bg-transparent outline-none focus:border-[#ff0080] transition-colors resize-none ${
+                  darkMode
+                    ? "text-white placeholder:text-white/30"
+                    : "text-black placeholder:text-black/30"
+                } ${
                   fieldErrors.message
                     ? "border-red-500"
                     : darkMode
-                      ? "border-white/20 text-white placeholder:text-white/30"
-                      : "border-black/20 text-black placeholder:text-black/30"
+                      ? "border-white/20"
+                      : "border-black/20"
                 }`}
               />
               <div className="flex items-center justify-between">
