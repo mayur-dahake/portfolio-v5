@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import {
   MapPin,
   Download,
@@ -14,286 +13,236 @@ const architecturePillars = [
   {
     icon: Layers,
     title: "Layered Architecture",
-    desc: "DAL → BLL → API separation for maintainability and testability"
+    desc: "DAL → BLL → API separation for maintainability, clarity, and unit testability."
   },
   {
     icon: Database,
     title: "DB Optimization",
-    desc: "Indexing, query tuning, SqlBulkCopy for high-volume data ops"
+    desc: "Targeted indexing, query profiling, and efficient data access workflows."
   },
   {
     icon: Shield,
-    title: "Security First",
-    desc: "JWT auth, input validation, encrypted sensitive data at rest"
+    title: "Security by Default",
+    desc: "JWT-based authentication, strict input validation, and secure API contracts."
   },
   {
     icon: Zap,
-    title: "Performance",
-    desc: "Caching strategies, async pipelines, bulk operations"
+    title: "Reliable Performance",
+    desc: "Asynchronous processing, efficient data transfer, and resilient service endpoints."
   }
 ];
 
 export default function AboutSection({ profile, darkMode }) {
   if (!profile) return null;
 
-  const bio = profile.bio || "";
-  // Split at the nearest sentence boundary — find the first period followed by a space
-  // that falls after the first 30% of the text. Fall back to midpoint word split.
-  const sentenceBreak = (() => {
-    const minIdx = Math.floor(bio.length * 0.3);
-    const periodIdx = bio.indexOf(". ", minIdx);
-    if (periodIdx !== -1 && periodIdx < bio.length * 0.75) {
-      return {
-        lead: bio.slice(0, periodIdx + 1),
-        rest: bio.slice(periodIdx + 2).trim()
-      };
-    }
-    // Fallback: split by words at midpoint
-    const words = bio.split(" ").filter(Boolean);
-    const mid = Math.floor(words.length * 0.5);
-    return {
-      lead: words.slice(0, mid).join(" "),
-      rest: words.slice(mid).join(" ")
-    };
-  })();
-  const { lead, rest } = sentenceBreak;
+  const resumeUrl = profile.resumeUrl || "/resume.pdf";
 
   return (
     <section
       id="about"
-      className={`py-16 md:py-32 px-4 md:px-12 lg:px-24 relative overflow-hidden ${darkMode ? "bg-[#111]" : "bg-[#f5f5f0]"}`}
+      className={`py-20 md:py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden ${
+        darkMode ? "bg-[#0d0d0d]" : "bg-[#f8fafc]"
+      }`}
     >
-      {/* Large background text */}
-      <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black pointer-events-none whitespace-nowrap ${darkMode ? "text-white/[0.02]" : "text-black/[0.02]"}`}
-      >
-        ABOUT
-      </div>
-
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section marker */}
-        <motion.div
-          className="flex items-center gap-4 mb-10 md:mb-20"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
+        <div className="flex items-center gap-4 mb-12">
           <span
-            className={`text-xs font-mono tracking-widest ${darkMode ? "text-white/40" : "text-black/40"}`}
+            className={`text-xs font-mono tracking-widest ${
+              darkMode ? "text-[#ff0080]" : "text-[#ff0080]"
+            }`}
           >
             001
           </span>
           <div
-            className={`w-16 h-px ${darkMode ? "bg-white/20" : "bg-black/20"}`}
+            className={`w-12 h-px ${darkMode ? "bg-white/20" : "bg-black/20"}`}
           />
-          <span
-            className={`text-xs font-mono tracking-widest ${darkMode ? "text-white/40" : "text-black/40"}`}
+          <h2
+            className={`text-xs font-mono tracking-widest uppercase font-bold ${
+              darkMode ? "text-white/60" : "text-black/60"
+            }`}
           >
-            ABOUT
-          </span>
-        </motion.div>
+            About & Approach
+          </h2>
+        </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 md:gap-12">
-          {/* Left column - large statement */}
+        <div className="grid lg:grid-cols-12 gap-10 md:gap-16 items-start">
+          {/* Left column - professional bio statement */}
           <div className="lg:col-span-7">
-            <motion.p
-              className={`text-xl md:text-4xl lg:text-5xl font-light leading-tight ${darkMode ? "text-white" : "text-black"}`}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+            <h3
+              className={`text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-6 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
             >
-              {lead.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  className={i % 7 === 3 ? "text-[#ff0080] italic" : ""}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.03 }}
-                >
-                  {word}{" "}
-                </motion.span>
-              ))}
-            </motion.p>
+              Engineering enterprise software with a focus on{" "}
+              <span className="text-[#ff0080]">stability, clean structure</span>
+              , and long-term maintainability.
+            </h3>
+            <p
+              className={`text-base md:text-lg leading-relaxed mb-6 font-normal ${
+                darkMode ? "text-white/70" : "text-black/70"
+              }`}
+            >
+              {profile.bio ||
+                "Full Stack Developer with 5+ years of experience building scalable enterprise applications and ERP systems. Specialized in .NET, Angular, and cloud-based solutions on Azure."}
+            </p>
+            <p
+              className={`text-sm md:text-base leading-relaxed font-normal ${
+                darkMode ? "text-white/50" : "text-black/60"
+              }`}
+            >
+              My professional background spans full-lifecycle software delivery
+              across Saviant and Birlasoft—from drafting relational schemas in
+              SQL Server and implementing ASP.NET Web APIs to delivering
+              responsive Angular user interfaces.
+            </p>
           </div>
 
-          {/* Right column - details */}
-          <div className="lg:col-span-5 lg:pt-12">
-            <motion.p
-              className={`text-lg leading-relaxed mb-12 ${darkMode ? "text-white/60" : "text-black/60"}`}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              {rest}
-            </motion.p>
-
-            {/* Info cards */}
-            <div className="space-y-4">
-              {profile.location && (
-                <motion.div
-                  className={`group flex items-center justify-between p-4 border-b hover:border-[#ff0080] transition-colors cursor-default ${darkMode ? "border-white/10" : "border-black/10"}`}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
+          {/* Right column - details & credentials */}
+          <div className="lg:col-span-5 space-y-4">
+            {profile.location && (
+              <div
+                className={`flex items-center justify-between p-4 border transition-colors ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02]"
+                    : "border-black/10 bg-black/[0.01]"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <MapPin
+                    className={`w-4 h-4 ${
+                      darkMode ? "text-[#ff0080]" : "text-[#ff0080]"
+                    }`}
+                  />
+                  <span
+                    className={`text-xs font-mono uppercase tracking-wider ${
+                      darkMode ? "text-white/50" : "text-black/50"
+                    }`}
+                  >
+                    Location
+                  </span>
+                </div>
+                <span
+                  className={`font-mono text-sm font-semibold ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <MapPin
-                      className={`w-4 h-4 group-hover:text-[#ff0080] transition-colors ${darkMode ? "text-white/30" : "text-black/30"}`}
-                    />
-                    <span
-                      className={`text-xs font-mono uppercase tracking-wider ${darkMode ? "text-white/40" : "text-black/40"}`}
-                    >
-                      Location
-                    </span>
-                  </div>
-                  <span
-                    className={`font-medium ${darkMode ? "text-white" : "text-black"}`}
-                  >
-                    {profile.location}
-                  </span>
-                </motion.div>
-              )}
+                  {profile.location}
+                </span>
+              </div>
+            )}
 
-              {profile.yearsExperience && (
-                <motion.div
-                  className={`group flex items-center justify-between p-4 border-b hover:border-[#ff0080] transition-colors cursor-default ${darkMode ? "border-white/10" : "border-black/10"}`}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6 }}
+            {profile.yearsExperience && (
+              <div
+                className={`flex items-center justify-between p-4 border transition-colors ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02]"
+                    : "border-black/10 bg-black/[0.01]"
+                }`}
+              >
+                <span
+                  className={`text-xs font-mono uppercase tracking-wider ${
+                    darkMode ? "text-white/50" : "text-black/50"
+                  }`}
                 >
-                  <span
-                    className={`text-xs font-mono uppercase tracking-wider ${darkMode ? "text-white/40" : "text-black/40"}`}
-                  >
-                    Experience
-                  </span>
-                  <span
-                    className={`font-medium ${darkMode ? "text-white" : "text-black"}`}
-                  >
-                    {profile.yearsExperience}+ Years
-                  </span>
-                </motion.div>
-              )}
+                  Experience
+                </span>
+                <span
+                  className={`font-mono text-sm font-semibold text-[#ff0080]`}
+                >
+                  {profile.yearsExperience}+ Years Professional
+                </span>
+              </div>
+            )}
 
-              {profile.email && (
-                <motion.a
-                  href={`mailto:${profile.email}`}
-                  className={`group flex items-center justify-between p-4 border-b hover:border-[#ff0080] transition-colors ${darkMode ? "border-white/10" : "border-black/10"}`}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7 }}
+            {profile.email && (
+              <a
+                href={`mailto:${profile.email}`}
+                className={`flex items-center justify-between p-4 border transition-colors group ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02] hover:border-[#ff0080]"
+                    : "border-black/10 bg-black/[0.01] hover:border-[#ff0080]"
+                }`}
+              >
+                <span
+                  className={`text-xs font-mono uppercase tracking-wider ${
+                    darkMode ? "text-white/50" : "text-black/50"
+                  }`}
                 >
-                  <span
-                    className={`text-xs font-mono uppercase tracking-wider ${darkMode ? "text-white/40" : "text-black/40"}`}
-                  >
-                    Email
-                  </span>
-                  <span
-                    className={`font-medium flex items-center gap-2 ${darkMode ? "text-white" : "text-black"}`}
-                  >
-                    {profile.email}
-                    <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </span>
-                </motion.a>
-              )}
+                  Direct Email
+                </span>
+                <span
+                  className={`font-mono text-sm font-medium flex items-center gap-1.5 ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}
+                >
+                  {profile.email}
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:text-[#ff0080] transition-all" />
+                </span>
+              </a>
+            )}
+
+            <div className="pt-4">
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 font-mono text-xs tracking-widest font-semibold border transition-all ${
+                  darkMode
+                    ? "border-white/20 text-white hover:border-[#ff0080] hover:text-[#ff0080]"
+                    : "border-black/20 text-black hover:border-[#ff0080] hover:text-[#ff0080]"
+                }`}
+              >
+                <Download className="w-4 h-4" />
+                DOWNLOAD RESUME (PDF)
+              </a>
             </div>
-
-            {/* Resume button / fallback CTA */}
-            <motion.div
-              className="mt-12"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-            >
-              {profile.resumeUrl ? (
-                <a
-                  href={profile.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-3 px-6 py-4 font-medium hover:bg-[#ff0080] transition-colors group ${
-                    darkMode
-                      ? "bg-white text-black hover:text-white"
-                      : "bg-black text-white"
-                  }`}
-                >
-                  <Download className="w-4 h-4" />
-                  Download CV
-                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
-                </a>
-              ) : (
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById("contact")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className={`inline-flex items-center gap-3 px-6 py-4 font-medium border hover:border-[#ff0080] hover:text-[#ff0080] transition-colors group ${
-                    darkMode
-                      ? "border-white/30 text-white/70"
-                      : "border-black/30 text-black/70"
-                  }`}
-                >
-                  Get In Touch
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </a>
-              )}
-            </motion.div>
           </div>
         </div>
 
         {/* How I Build Systems */}
-        <motion.div
-          className="mt-20 md:mt-32"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-4 mb-10">
+        <div className="mt-20 md:mt-28">
+          <div className="flex items-center gap-4 mb-8">
             <div
-              className={`w-16 h-px ${darkMode ? "bg-white/20" : "bg-black/20"}`}
+              className={`w-12 h-px ${darkMode ? "bg-white/20" : "bg-black/20"}`}
             />
-            <span
-              className={`text-xs font-mono tracking-widest ${darkMode ? "text-white/40" : "text-black/40"}`}
+            <h3
+              className={`text-xs font-mono tracking-widest uppercase font-bold ${
+                darkMode ? "text-white/60" : "text-black/60"
+              }`}
             >
-              HOW I BUILD SYSTEMS
-            </span>
+              How I Build Systems
+            </h3>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {architecturePillars.map((pillar, i) => (
-              <motion.div
+            {architecturePillars.map((pillar) => (
+              <div
                 key={pillar.title}
-                className={`group p-5 border hover:border-[#ff0080] transition-all duration-300 ${darkMode ? "border-white/10 bg-white/[0.02]" : "border-black/10 bg-black/[0.02]"}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                className={`p-6 border transition-all duration-300 ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02] hover:border-white/30"
+                    : "border-black/10 bg-black/[0.01] hover:border-black/30"
+                }`}
               >
-                <pillar.icon
-                  className={`w-5 h-5 mb-3 group-hover:text-[#ff0080] transition-colors ${darkMode ? "text-white/40" : "text-black/40"}`}
-                />
+                <pillar.icon className={`w-5 h-5 mb-4 text-[#ff0080]`} />
                 <h4
-                  className={`text-sm font-bold mb-1.5 group-hover:text-[#ff0080] transition-colors ${darkMode ? "text-white" : "text-black"}`}
+                  className={`text-sm font-bold mb-2 ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}
                 >
                   {pillar.title}
                 </h4>
                 <p
-                  className={`text-xs leading-relaxed ${darkMode ? "text-white/40" : "text-black/40"}`}
+                  className={`text-xs leading-relaxed ${
+                    darkMode ? "text-white/50" : "text-black/60"
+                  }`}
                 >
                   {pillar.desc}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

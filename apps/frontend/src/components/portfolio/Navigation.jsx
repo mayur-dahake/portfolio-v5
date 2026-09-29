@@ -62,7 +62,9 @@ export default function Navigation({ darkMode, setDarkMode }) {
           {/* Logo */}
           <a
             href="#"
-            className={`text-xl font-black transition-colors ${darkMode ? "text-white" : scrolled ? "text-black" : "text-white"}`}
+            className={`text-xl font-black transition-colors ${
+              darkMode ? "text-white" : "text-black"
+            }`}
           >
             ✦
           </a>
@@ -79,12 +81,12 @@ export default function Navigation({ darkMode, setDarkMode }) {
                   aria-current={isActive ? "true" : undefined}
                   className={`group text-sm font-medium transition-colors relative ${
                     isActive
-                      ? "text-white"
+                      ? darkMode
+                        ? "text-white"
+                        : "text-black"
                       : darkMode
                         ? "text-white/50 hover:text-white"
-                        : scrolled
-                          ? "text-black/50 hover:text-black"
-                          : "text-white/50 hover:text-white"
+                        : "text-black/60 hover:text-black"
                   }`}
                 >
                   <span className="text-[10px] font-mono text-[#ff0080] mr-1">
@@ -108,12 +110,13 @@ export default function Navigation({ darkMode, setDarkMode }) {
 
             <button
               onClick={() => setDarkMode(!darkMode)}
+              aria-label={
+                darkMode ? "Switch to light theme" : "Switch to dark theme"
+              }
               className={`w-10 h-10 flex items-center justify-center transition-colors ${
                 darkMode
                   ? "text-white/50 hover:text-[#ff0080]"
-                  : scrolled
-                    ? "text-black/50 hover:text-[#ff0080]"
-                    : "text-white/50 hover:text-[#ff0080]"
+                  : "text-black/60 hover:text-[#ff0080]"
               }`}
             >
               {darkMode ? (
@@ -128,7 +131,14 @@ export default function Navigation({ darkMode, setDarkMode }) {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className={`w-10 h-10 flex items-center justify-center ${darkMode ? "text-white" : scrolled ? "text-black" : "text-white"}`}
+              aria-label={
+                darkMode ? "Switch to light theme" : "Switch to dark theme"
+              }
+              className={`w-10 h-10 flex items-center justify-center transition-colors ${
+                darkMode
+                  ? "text-white/70 hover:text-[#ff0080]"
+                  : "text-black/70 hover:text-[#ff0080]"
+              }`}
             >
               {darkMode ? (
                 <Sun className="w-4 h-4" />
@@ -138,7 +148,10 @@ export default function Navigation({ darkMode, setDarkMode }) {
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className={`w-10 h-10 flex items-center justify-center ${darkMode ? "text-white" : scrolled ? "text-black" : "text-white"}`}
+              aria-label="Open menu"
+              className={`w-10 h-10 flex items-center justify-center transition-colors ${
+                darkMode ? "text-white" : "text-black"
+              }`}
             >
               <Menu className="w-5 h-5" />
             </button>

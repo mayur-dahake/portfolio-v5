@@ -2,46 +2,47 @@ import { Prisma } from "@prisma/client";
 
 export const projectsData: Prisma.ProjectCreateManyInput[] = [
   {
-    title: "MDevHub - Angular UI Library",
+    title: "E-Commerce / ERP Dashboard",
     description:
-      "Open-source Angular UI component library for reusable and modern UI components.",
+      "Admin dashboard for managing enterprise operations, inventory, and analytics.",
     longDescription:
-      "MDevHub is an open-source Angular UI library available on npm, providing reusable and customizable UI components. It helps developers build consistent and accessible interfaces quickly.",
-    techStack: ["TypeScript", "Node.js", "SCSS", "HTML", "Angular"],
-    tags: ["Open Source", "UI Library", "Angular"],
+      "A full-featured administrative dashboard for enterprise operations. Features order processing workflows, inventory tracking, customer analytics, and data management pipelines.",
+    techStack: [".NET", "Angular", "SQL Server", "Azure"],
+    tags: ["Enterprise", "Dashboard", "Analytics"],
     featured: true,
     order: 1
   },
   {
-    title: "SpeedoNix",
+    title: "MDevHub - Angular UI Library",
     description:
-      "A sleek web app that measures internet speed with real-time animation.",
+      "Open-source Angular UI component library for reusable and accessible UI components.",
     longDescription:
-      "SpeedoNix measures latency, download, and upload speeds with real-time visualization using Angular and TypeScript. Designed for accuracy and smooth UI performance.",
-    techStack: ["Angular", "TypeScript", "Node.js", "HTML", "SCSS"],
-    tags: ["Web App", "Performance", "Tools"],
+      "MDevHub is an open-source Angular UI library available on npm, providing reusable and customizable UI components. It helps developers build consistent, accessible, and structured interfaces quickly.",
+    techStack: ["TypeScript", "Node.js", "SCSS", "HTML", "Angular"],
+    tags: ["Open Source", "UI Library", "Angular"],
     featured: true,
     order: 2
   },
   {
-    title: "Halcyon Theme",
-    description: "A minimal dark theme for multiple developer tools.",
+    title: "Fitness Tracker API",
+    description:
+      "RESTful API for fitness applications with workout logging, progress tracking, and Swagger documentation.",
     longDescription:
-      "A minimal dark blue theme available across VS Code, Sublime, Atom, and terminals. Designed for readability and reduced eye strain.",
-    techStack: ["VS Code", "Sublime Text", "Atom", "iTerm2", "Hyper"],
-    tags: ["Theme", "Developer Tools", "Open Source"],
+      "A structured RESTful API designed with .NET Core and SQL Server for fitness tracking platforms. Features secure endpoint design, workout logging, progression tracking, and comprehensive Swagger/OpenAPI documentation.",
+    techStack: [".NET Core", "C#", "SQL Server", "Swagger"],
+    tags: ["Backend", "API", "REST"],
     featured: true,
     order: 3
   },
   {
-    title: "Build a Spotify Connected App",
+    title: "SpeedoNix",
     description:
-      "A comprehensive course covering Spotify OAuth flow and fetching API data in a React app.",
+      "A sleek web app that measures internet speed and latency with real-time visualization.",
     longDescription:
-      "Having struggled with understanding how the Spotify OAuth flow works, this course covers everything from REST APIs to implementing Spotify OAuth and fetching data in a React app. By the end, you will have a deployed portfolio-ready app.",
-    techStack: ["React", "Express", "Spotify API", "Styled Components"],
-    tags: ["Course", "Tutorial", "API Integration"],
-    featured: true,
+      "SpeedoNix measures latency, download, and upload speeds with real-time UI visualization using Angular and TypeScript. Designed for responsiveness and clean UI feedback.",
+    techStack: ["Angular", "TypeScript", "Node.js", "HTML", "SCSS"],
+    tags: ["Web App", "Performance", "Tools"],
+    featured: false,
     order: 4
   },
   {
@@ -49,54 +50,32 @@ export const projectsData: Prisma.ProjectCreateManyInput[] = [
     description:
       "A modern task management application with real-time collaboration features.",
     longDescription:
-      "TaskFlow Pro is a comprehensive task management solution built for teams. Features include real-time updates, drag-and-drop organization, priority tagging, and detailed analytics dashboard.",
+      "TaskFlow Pro is a task management solution built for teams. Features include real-time status updates, drag-and-drop organization, priority tagging, and analytics dashboards.",
     techStack: ["Angular", "Node.js", "MongoDB", "Socket.io"],
-    tags: ["Productivity", "SaaS", "Collaboration"],
+    tags: ["Productivity", "Collaboration"],
     featured: false,
     order: 5
   },
   {
-    title: "E-Commerce Dashboard",
+    title: "DevNotes",
     description:
-      "Admin dashboard for managing online store operations with analytics.",
+      "Markdown-based note-taking app for developers with syntax highlighting for 50+ languages.",
     longDescription:
-      "A full-featured admin dashboard for e-commerce platforms. Includes sales analytics, inventory management, customer insights, and order processing workflows.",
-    techStack: [".NET", "Angular", "SQL Server", "Azure"],
-    tags: ["E-Commerce", "Dashboard", "Analytics"],
+      "DevNotes is a developer-focused note-taking application featuring full markdown support, code syntax highlighting, and cloud persistence capabilities.",
+    techStack: ["React", "TypeScript", "Firebase", "Monaco Editor"],
+    tags: ["Developer Tools", "Productivity"],
     featured: false,
     order: 6
   },
   {
     title: "Weather Insights",
     description:
-      "Beautiful weather application with 7-day forecasts and location-based alerts.",
+      "Weather application providing multi-day forecasts and location-based meteorological metrics.",
     longDescription:
-      "Weather Insights provides accurate weather data with stunning visualizations. Features include hourly forecasts, severe weather alerts, and historical weather patterns.",
+      "Weather Insights provides meteorological data visual analytics. Features include multi-day forecast charts, severe condition alerts, and location search.",
     techStack: ["Angular", "TypeScript", "OpenWeather API", "Chart.js"],
-    tags: ["Weather", "API Integration", "Mobile-First"],
+    tags: ["Weather", "API Integration"],
     featured: false,
     order: 7
-  },
-  {
-    title: "DevNotes",
-    description:
-      "Markdown-based note-taking app designed for developers with code syntax highlighting.",
-    longDescription:
-      "DevNotes is a developer-focused note-taking application with full markdown support, code syntax highlighting for 50+ languages, and cloud sync capabilities.",
-    techStack: ["React", "TypeScript", "Firebase", "Monaco Editor"],
-    tags: ["Developer Tools", "Productivity", "Notes"],
-    featured: false,
-    order: 8
-  },
-  {
-    title: "Fitness Tracker API",
-    description:
-      "RESTful API for fitness applications with workout logging and progress tracking.",
-    longDescription:
-      "A robust RESTful API designed for fitness applications. Features include workout logging, progress tracking, nutrition data, and integration with wearable devices.",
-    techStack: [".NET Core", "C#", "SQL Server", "Swagger"],
-    tags: ["API", "Health", "Backend"],
-    featured: false,
-    order: 9
   }
 ];

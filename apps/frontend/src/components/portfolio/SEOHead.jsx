@@ -3,28 +3,25 @@ import { useEffect } from "react";
 export default function SEOHead({ profile, project = null }) {
   useEffect(() => {
     // Base SEO data
-    const siteName = profile?.name || "Mayur Dahake";
+    const siteName = profile?.fullName || "Mayur Dahake";
+    const defaultHeadline =
+      profile?.headline ||
+      "Full-Stack Software Engineer — .NET Core, Angular & Azure";
     const defaultDescription =
       profile?.bio ||
-      profile?.tagline ||
-      "Full-stack developer portfolio showcasing projects and skills";
-    const defaultImage = "";
+      "Portfolio of Mayur Dahake, a Full-Stack Software Engineer with 5+ years of experience building scalable enterprise applications, ERP systems, and cloud services using .NET Core, Angular, and Azure.";
+    const defaultImage = "https://mayurdahake.vercel.app/og-image.png";
 
     // Dynamic data based on context (project detail vs homepage)
     const title = project
       ? `${project.title} | ${siteName}`
-      : `${siteName} - ${profile?.tagline || "Portfolio"}`;
+      : `${siteName} — ${defaultHeadline}`;
 
     const description = project
       ? project.longDescription || project.description
       : defaultDescription;
 
-    // Generate a fallback OG image using a public service if no image is set
-    const ogImageFallback = `https://og-image.vercel.app/${encodeURIComponent(
-      project ? project.title : profile?.name || "Portfolio"
-    )}.png?theme=dark&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-white.svg`;
-
-    const image = defaultImage || ogImageFallback;
+    const image = defaultImage;
 
     // Update document title
     document.title = title;
@@ -44,12 +41,12 @@ export default function SEOHead({ profile, project = null }) {
 
     // Basic meta tags
     setMeta("description", description);
-    setMeta("author", profile?.name);
+    setMeta("author", siteName);
     setMeta(
       "keywords",
       project
         ? `${project.techStack?.join(", ")}, ${project.tags?.join(", ")}, portfolio, project`
-        : ".NET, Angular, C#, TypeScript, full-stack developer, software engineer, portfolio"
+        : ".NET, Angular, C#, TypeScript, SQL Server, Azure, full-stack developer, software engineer, portfolio"
     );
 
     // Open Graph tags
@@ -60,15 +57,14 @@ export default function SEOHead({ profile, project = null }) {
     setMeta("og:site_name", siteName, true);
 
     // Twitter Card tags
-    setMeta("twitter:card", image ? "summary_large_image" : "summary");
+    setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
     setMeta("twitter:image", image);
 
-    // Cleanup function to reset to defaults when component unmounts
     return () => {
       if (project) {
-        document.title = `${siteName} - ${profile?.tagline || "Software Developer"}`;
+        document.title = `${siteName} — ${defaultHeadline}`;
       }
     };
   }, [profile, project]);
@@ -81,12 +77,14 @@ export function PortfolioSchema({ profile, projects }) {
   useEffect(() => {
     if (!profile) return;
 
+    const fullName = profile.fullName || "Mayur Dahake";
+
     // Person schema
     const personSchema = {
       "@context": "https://schema.org",
       "@type": "Person",
-      name: profile.fullName,
-      jobTitle: profile.headline,
+      name: fullName,
+      jobTitle: profile.headline || "Full-Stack Software Engineer",
       description: profile.bio,
       email: profile.email,
       image: null,
@@ -106,8 +104,8 @@ export function PortfolioSchema({ profile, projects }) {
     const portfolioSchema = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: `${profile.fullName}'s Portfolio`,
-      description: `Software development projects by ${profile.fullName}`,
+      name: `${fullName}'s Portfolio`,
+      description: `Software development projects by ${fullName}`,
       itemListElement:
         projects?.map((project, index) => ({
           "@type": "ListItem",
@@ -120,7 +118,7 @@ export function PortfolioSchema({ profile, projects }) {
             url: project.liveUrl,
             author: {
               "@type": "Person",
-              name: profile.fullName
+              name: fullName
             },
             keywords: project.techStack?.join(", ")
           }
@@ -167,7 +165,7 @@ export function ProjectSchema({ project, authorName }) {
       programmingLanguage: project.techStack,
       author: {
         "@type": "Person",
-        name: authorName
+        name: authorName || "Mayur Dahake"
       },
       keywords: [...(project.techStack || []), ...(project.tags || [])].join(
         ", "
