@@ -79,15 +79,29 @@ export function PortfolioSchema({ profile, projects }) {
 
     const fullName = profile.fullName || "Mayur Dahake";
 
+    const cleanObject = (obj) => {
+      const result = {};
+      for (const [key, value] of Object.entries(obj)) {
+        if (value !== null && value !== undefined && value !== "") {
+          if (typeof value === "object" && !Array.isArray(value)) {
+            const nested = cleanObject(value);
+            if (Object.keys(nested).length) result[key] = nested;
+          } else {
+            result[key] = value;
+          }
+        }
+      }
+      return result;
+    };
+
     // Person schema
-    const personSchema = {
+    const personSchema = cleanObject({
       "@context": "https://schema.org",
       "@type": "Person",
       name: fullName,
       jobTitle: profile.headline || "Full-Stack Software Engineer",
       description: profile.bio,
       email: profile.email,
-      image: null,
       url: window.location.origin,
       address: profile.location
         ? {
@@ -98,32 +112,33 @@ export function PortfolioSchema({ profile, projects }) {
       sameAs: [profile.github, profile.linkedin, profile.twitterUrl].filter(
         Boolean
       )
-    };
+    });
 
     // Portfolio items schema
-    const portfolioSchema = {
+    const portfolioSchema = cleanObject({
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: `${fullName}'s Portfolio`,
       description: `Software development projects by ${fullName}`,
       itemListElement:
-        projects?.map((project, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          item: {
-            "@type": "CreativeWork",
-            name: project.title,
-            description: project.description,
-            image: null,
-            url: project.liveUrl,
-            author: {
-              "@type": "Person",
-              name: fullName
-            },
-            keywords: project.techStack?.join(", ")
-          }
-        })) || []
-    };
+        projects?.map((project, index) =>
+          cleanObject({
+            "@type": "ListItem",
+            position: index + 1,
+            item: cleanObject({
+              "@type": "CreativeWork",
+              name: project.title,
+              description: project.description,
+              url: project.liveUrl || undefined,
+              author: {
+                "@type": "Person",
+                name: fullName
+              },
+              keywords: project.techStack?.join(", ")
+            })
+          })
+        ) || []
+    });
 
     // Insert or update schema scripts
     const insertSchema = (id, schema) => {
@@ -154,14 +169,23 @@ export function ProjectSchema({ project, authorName }) {
   useEffect(() => {
     if (!project) return;
 
-    const projectSchema = {
+    const cleanObject = (obj) => {
+      const result = {};
+      for (const [key, value] of Object.entries(obj)) {
+        if (value !== null && value !== undefined && value !== "") {
+          result[key] = value;
+        }
+      }
+      return result;
+    };
+
+    const projectSchema = cleanObject({
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       name: project.title,
       description: project.longDescription || project.description,
-      image: null,
-      url: project.liveUrl,
-      codeRepository: project.repoUrl,
+      url: project.liveUrl || undefined,
+      codeRepository: project.repoUrl || undefined,
       programmingLanguage: project.techStack,
       author: {
         "@type": "Person",
@@ -170,7 +194,7 @@ export function ProjectSchema({ project, authorName }) {
       keywords: [...(project.techStack || []), ...(project.tags || [])].join(
         ", "
       )
-    };
+    });
 
     let script = document.getElementById("project-schema");
     if (!script) {

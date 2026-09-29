@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, FileText } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const navItems = [
   { label: "About", href: "#about", num: "001" },
@@ -10,10 +11,36 @@ const navItems = [
   { label: "Contact", href: "#contact", num: "005" }
 ];
 
-export default function Navigation({ darkMode, setDarkMode }) {
+export default function Navigation({ darkMode, setDarkMode, profile }) {
+  const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+
+  const resumeUrl = profile?.resumeUrl || "/resume.pdf";
+
+  const handleResumeClick = async (e) => {
+    if (resumeUrl.startsWith("/") || resumeUrl.includes("resume.pdf")) {
+      try {
+        const res = await fetch(resumeUrl, { method: "HEAD" });
+        if (!res.ok) {
+          e.preventDefault();
+          toast({
+            title: "Resume Document Updating",
+            description:
+              "Please reach out directly via email or LinkedIn for the latest CV."
+          });
+        }
+      } catch {
+        e.preventDefault();
+        toast({
+          title: "Resume Document Updating",
+          description:
+            "Please reach out directly via email or LinkedIn for the latest CV."
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +61,21 @@ export default function Navigation({ darkMode, setDarkMode }) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Dismiss mobile menu on Escape and lock background scroll
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
 
   const scrollToSection = (href) => {
     setIsOpen(false);
@@ -113,7 +155,7 @@ export default function Navigation({ darkMode, setDarkMode }) {
               aria-label={
                 darkMode ? "Switch to light theme" : "Switch to dark theme"
               }
-              className={`w-10 h-10 flex items-center justify-center transition-colors ${
+              className={`w-10 h-10 flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none rounded ${
                 darkMode
                   ? "text-white/50 hover:text-[#ff0080]"
                   : "text-black/60 hover:text-[#ff0080]"
@@ -125,6 +167,18 @@ export default function Navigation({ darkMode, setDarkMode }) {
                 <Moon className="w-4 h-4" />
               )}
             </button>
+
+            <a
+              href={resumeUrl}
+              onClick={handleResumeClick}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download or view resume PDF"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-semibold tracking-wider border border-[#ff0080]/40 text-[#ff0080] hover:bg-[#ff0080]/10 rounded transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              RESUME
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -149,7 +203,9 @@ export default function Navigation({ darkMode, setDarkMode }) {
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Open menu"
-              className={`w-10 h-10 flex items-center justify-center transition-colors ${
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              className={`w-10 h-10 flex items-center justify-center transition-colors focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none ${
                 darkMode ? "text-white" : "text-black"
               }`}
             >
@@ -163,6 +219,10 @@ export default function Navigation({ darkMode, setDarkMode }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col"
             initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
@@ -174,7 +234,8 @@ export default function Navigation({ darkMode, setDarkMode }) {
               <span className="text-xl font-black text-white">✦</span>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-10 h-10 flex items-center justify-center text-white"
+                aria-label="Close menu"
+                className="w-10 h-10 flex items-center justify-center text-white focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -199,6 +260,28 @@ export default function Navigation({ darkMode, setDarkMode }) {
                   </span>
                 </motion.button>
               ))}
+
+              <motion.div
+                className="pt-6 mt-4 border-t border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <a
+                  href={resumeUrl}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    handleResumeClick(e);
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download resume PDF"
+                  className="inline-flex items-center gap-2 px-5 py-3 text-sm font-mono font-semibold tracking-wider border border-[#ff0080] text-[#ff0080] hover:bg-[#ff0080]/10 rounded transition-colors focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none"
+                >
+                  <FileText className="w-4 h-4" />
+                  RESUME (PDF)
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         )}

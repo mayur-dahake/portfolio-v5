@@ -76,11 +76,20 @@ export default function ProjectsSection({ projects, darkMode, authorName }) {
                 {featuredProjects.map((project, index) => (
                   <motion.div
                     key={project.id}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View case study for ${project.title}`}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelectedProject(project);
+                      }
+                    }}
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className={`grid md:grid-cols-12 gap-8 items-center cursor-pointer group ${index % 2 === 1 ? "md:text-right" : ""}`}
+                    className={`grid md:grid-cols-12 gap-8 items-center cursor-pointer group focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none p-2 -m-2 ${index % 2 === 1 ? "md:text-right" : ""}`}
                     onClick={() => setSelectedProject(project)}
                   >
                     {/* Premium project card visual */}
@@ -300,11 +309,20 @@ export default function ProjectsSection({ projects, darkMode, authorName }) {
                       {visibleProjects.map((project, index) => (
                         <motion.div
                           key={project.id}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`View details for ${project.title}`}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              setSelectedProject(project);
+                            }
+                          }}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ delay: index * 0.04 }}
-                          className={`py-6 border-b group cursor-pointer ${darkMode ? "border-white/10" : "border-black/10"}`}
+                          className={`py-6 border-b group cursor-pointer focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none px-2 -mx-2 ${darkMode ? "border-white/10" : "border-black/10"}`}
                           onClick={() => setSelectedProject(project)}
                         >
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

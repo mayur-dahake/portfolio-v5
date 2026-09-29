@@ -97,26 +97,44 @@ export default function Home() {
       <SEOHead profile={activeProfile} />
       <PortfolioSchema profile={activeProfile} projects={projects} />
 
+      {/* Accessible skip link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#ff0080] focus:text-white focus:font-mono focus:text-xs focus:outline-none focus:ring-2 focus:ring-white shadow-lg"
+      >
+        Skip to main content
+      </a>
+
       <div
         className="min-h-screen selection:bg-[#ff0080] selection:text-white"
         style={{ transition: "background-color 0.5s ease, color 0.5s ease" }}
       >
         <ScrollProgressBar />
-        <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
-        <HeroSection
-          profile={activeProfile}
-          darkMode={darkMode}
-          projects={projects}
-        />
-        <AboutSection profile={activeProfile} darkMode={darkMode} />
-        <ExperienceSection experiences={experiences} darkMode={darkMode} />
-        <ProjectsSection
-          projects={projects}
-          darkMode={darkMode}
-          authorName={activeProfile?.fullName}
-        />
-        <SkillsSection skills={skills} darkMode={darkMode} />
-        <ContactSection profile={activeProfile} darkMode={darkMode} />
+        <header>
+          <Navigation
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            profile={activeProfile}
+          />
+        </header>
+
+        <main id="main-content">
+          <HeroSection
+            profile={activeProfile}
+            darkMode={darkMode}
+            projects={projects}
+          />
+          <AboutSection profile={activeProfile} darkMode={darkMode} />
+          <ExperienceSection experiences={experiences} darkMode={darkMode} />
+          <ProjectsSection
+            projects={projects}
+            darkMode={darkMode}
+            authorName={activeProfile?.fullName}
+          />
+          <SkillsSection skills={skills} darkMode={darkMode} />
+          <ContactSection profile={activeProfile} darkMode={darkMode} />
+        </main>
+
         <Footer profile={activeProfile} darkMode={darkMode} />
       </div>
     </div>

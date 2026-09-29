@@ -176,7 +176,7 @@ export default function ContactSection({ profile, darkMode }) {
               </a>
               <button
                 onClick={copyEmail}
-                className={`p-2.5 border transition-all relative ${
+                className={`p-2.5 border transition-all relative focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none ${
                   darkMode
                     ? "border-white/20 text-white/70 hover:border-[#ff0080] hover:text-[#ff0080]"
                     : "border-black/20 text-black/70 hover:border-[#ff0080] hover:text-[#ff0080]"
@@ -370,7 +370,7 @@ export default function ContactSection({ profile, darkMode }) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="md:col-span-2 flex items-center justify-center gap-2 px-8 py-4 bg-[#ff0080] text-white font-mono text-xs tracking-widest font-bold hover:bg-[#ff0080]/90 transition-all disabled:opacity-50"
+              className="md:col-span-2 flex items-center justify-center gap-2 px-8 py-4 bg-[#ff0080] text-white font-mono text-xs tracking-widest font-bold hover:bg-[#ff0080]/90 transition-all disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none"
             >
               {isSubmitting ? (
                 "SENDING MESSAGE..."
@@ -385,7 +385,11 @@ export default function ContactSection({ profile, darkMode }) {
 
         {/* Social Links */}
         {socialLinks.length > 0 && (
-          <div className="mt-14 pt-8 border-t border-white/10">
+          <div
+            className={`mt-14 pt-8 border-t ${
+              darkMode ? "border-white/10" : "border-black/10"
+            }`}
+          >
             <p
               className={`text-xs font-mono tracking-widest uppercase mb-4 ${
                 darkMode ? "text-white/40" : "text-black/50"
@@ -400,7 +404,7 @@ export default function ContactSection({ profile, darkMode }) {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 flex items-center justify-center border transition-all ${
+                  className={`w-10 h-10 flex items-center justify-center border transition-all focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none ${
                     darkMode
                       ? "border-white/20 text-white/60 hover:border-[#ff0080] hover:text-[#ff0080]"
                       : "border-black/20 text-black/60 hover:border-[#ff0080] hover:text-[#ff0080]"

@@ -36,7 +36,8 @@ export default function Footer({ profile, darkMode }) {
 
         <button
           onClick={scrollToTop}
-          className={`group flex items-center gap-2 text-xs font-mono hover:text-[#ff0080] transition-colors ${
+          aria-label="Scroll back to top of page"
+          className={`group flex items-center gap-2 text-xs font-mono hover:text-[#ff0080] transition-colors focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none p-1 rounded-none ${
             darkMode ? "text-white/40" : "text-black/50"
           }`}
         >

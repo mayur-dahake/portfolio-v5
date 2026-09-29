@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -27,6 +27,20 @@ export default function ProjectModal({
   darkMode,
   authorName
 }) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen, onClose]);
+
   if (!project) return null;
 
   const sections = parseCaseStudy(project.longDescription);
@@ -53,6 +67,9 @@ export default function ProjectModal({
 
           {/* Modal */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-project-title"
             className="fixed inset-4 sm:inset-8 md:inset-14 lg:inset-20 z-50 overflow-hidden max-w-4xl mx-auto my-auto max-h-[90vh]"
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -104,7 +121,7 @@ export default function ProjectModal({
                   <button
                     onClick={onClose}
                     aria-label="Close modal"
-                    className={`w-9 h-9 flex items-center justify-center border transition-colors ${
+                    className={`w-9 h-9 flex items-center justify-center border transition-colors focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none ${
                       darkMode
                         ? "border-white/20 hover:border-[#ff0080] hover:text-[#ff0080]"
                         : "border-black/20 hover:border-[#ff0080] hover:text-[#ff0080]"
@@ -119,7 +136,10 @@ export default function ProjectModal({
               <div className="p-6 md:p-10 overflow-y-auto flex-1 space-y-8">
                 {/* Title & Short Value Statement */}
                 <div>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3">
+                  <h2
+                    id="modal-project-title"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3"
+                  >
                     {project.title}
                   </h2>
                   <p

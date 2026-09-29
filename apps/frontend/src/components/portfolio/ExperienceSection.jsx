@@ -53,9 +53,19 @@ function TimelineItem({ exp, index, isExpanded, onToggle, darkMode }) {
 
       {/* Card */}
       <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-label={`${isExpanded ? "Collapse" : "Expand"} details for ${exp.title || exp.role} at ${exp.company}`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onToggle();
+          }
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className={`mb-5 border transition-all duration-200 cursor-pointer ${
+        className={`mb-5 border transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none ${
           darkMode ? "bg-white/[0.02]" : "bg-black/[0.01]"
         } ${
           hovered || isExpanded
