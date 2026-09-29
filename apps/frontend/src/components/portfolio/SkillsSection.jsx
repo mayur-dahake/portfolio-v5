@@ -23,25 +23,39 @@ const categoryDescriptions = {
 };
 
 const skillCategoryMap = {
+  // Languages
   "C#": "Languages",
   TypeScript: "Languages",
   JavaScript: "Languages",
   SQL: "Languages",
-  HTML: "Languages",
-  SCSS: "Languages",
+
+  // Backend & APIs
+  ".NET Core": "Backend & APIs",
   ".NET": "Backend & APIs",
-  "Node.js": "Backend & APIs",
+  "ASP.NET Web API": "Backend & APIs",
   "REST APIs": "Backend & APIs",
   Swagger: "Backend & APIs",
+  "Node.js": "Backend & APIs",
+
+  // Frontend
   Angular: "Frontend",
+  HTML: "Frontend",
+  CSS: "Frontend",
+  SCSS: "Frontend",
   React: "Frontend",
+
+  // Databases
   "SQL Server": "Databases",
+  "Stored Procedures": "Databases",
+  "Query Optimization": "Databases",
   MySQL: "Databases",
   PostgreSQL: "Databases",
   MongoDB: "Databases",
+
+  // Cloud & Tools
   Azure: "Cloud & Tools",
-  Docker: "Cloud & Tools",
-  Git: "Cloud & Tools"
+  Git: "Cloud & Tools",
+  Docker: "Cloud & Tools"
 };
 
 export default function SkillsSection({ skills, darkMode }) {

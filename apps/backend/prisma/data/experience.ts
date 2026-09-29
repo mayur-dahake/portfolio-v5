@@ -3,11 +3,18 @@ import { Prisma } from "@prisma/client";
 export const experienceData: Prisma.ExperienceCreateManyInput[] = [
   {
     company: "Saviant",
-    title: "Solution Engineer",
+    title: "Software Engineer",
     description:
-      "Engineered and enhanced major features of customer-facing web applications using modern frameworks. Designed and implemented scalable cloud-based solutions, improving application performance and reliability. Collaborated with cross-functional teams to deliver consistent and user-centric experiences across platforms.",
-    techStack: [".NET", "Angular", "Azure", "TypeScript", "C#"],
-    startDate: new Date("2022-09-01"),
+      "Designed and developed enterprise web application features across Angular frontend interfaces, C# / .NET backend services, and SQL Server databases. Built and maintained RESTful APIs in .NET Core, authored stored procedures and data queries, and resolved production issues.",
+    techStack: [
+      ".NET Core",
+      "C#",
+      "Angular",
+      "SQL Server",
+      "REST APIs",
+      "Azure"
+    ],
+    startDate: new Date("2022-10-01"),
     endDate: undefined,
     isCurrent: true,
     order: 1
@@ -16,8 +23,8 @@ export const experienceData: Prisma.ExperienceCreateManyInput[] = [
     company: "Birlasoft",
     title: "Software Developer",
     description:
-      "Collaborated with designers and engineers to build scalable web applications and design systems for enterprise clients. Delivered robust technical solutions aligned with stakeholder requirements, focusing on backend development, API design, and database integration.",
-    techStack: [".NET", "C#", "SQL", "JavaScript", "Web API"],
+      "Developed core application modules and UI views using Angular, HTML, and SCSS for client enterprise systems. Implemented backend business logic and RESTful services using ASP.NET Web API, C#, and SQL Server.",
+    techStack: [".NET", "C#", "ASP.NET Web API", "Angular", "SQL Server"],
     startDate: new Date("2019-12-01"),
     endDate: new Date("2022-09-01"),
     isCurrent: false,

@@ -14,14 +14,18 @@ const formatDate = (dateStr) => {
 
 const experienceBullets = {
   Saviant: [
-    "Engineered and enhanced customer-facing web applications using Angular and .NET Core, delivering responsive and maintainable platform features.",
-    "Designed and implemented cloud-based backend services in Microsoft Azure, focusing on service reliability and secure data exchange.",
-    "Collaborated with cross-functional teams to optimize database interactions in SQL Server and deliver consistent user experiences."
+    "Designed and developed enterprise web application features across Angular frontend interfaces, C# / .NET backend services, and SQL Server databases.",
+    "Built and maintained RESTful APIs in .NET Core, implementing structured endpoints for data exchange between enterprise client applications and backend systems.",
+    "Authored and tuned SQL Server stored procedures, table schemas, and data queries for business workflows and operational reporting modules.",
+    "Investigated and resolved production bugs, performance bottlenecks, and database query issues to ensure ongoing application stability.",
+    "Collaborated with engineering teams to plan technical tasks, review code, and deploy application updates to Azure."
   ],
   Birlasoft: [
-    "Developed and integrated RESTful APIs using ASP.NET Web API and C#, connecting client frontends with relational database systems.",
-    "Authored relational schemas, stored procedures, and data queries in SQL Server to support business-critical reporting workflows.",
-    "Collaborated with designers and engineers to build reusable UI components and scalable web application features."
+    "Developed core application modules and UI views using Angular, HTML, and SCSS for client enterprise systems.",
+    "Implemented backend business logic and RESTful services using ASP.NET Web API, C#, and .NET framework.",
+    "Created and maintained SQL Server relational schemas, stored procedures, and queries supporting enterprise data management.",
+    "Diagnosed, debugged, and resolved defects across frontend components and backend API layers during testing and production releases.",
+    "Collaborated with technical leads, designers, and QA engineers to deliver features aligned with client functional requirements."
   ]
 };
 

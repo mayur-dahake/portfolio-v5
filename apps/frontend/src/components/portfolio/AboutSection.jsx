@@ -8,34 +8,60 @@ import {
   Zap,
   Database
 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const architecturePillars = [
   {
     icon: Layers,
     title: "Layered Architecture",
-    desc: "DAL → BLL → API separation for maintainability, clarity, and unit testability."
+    desc: "Clear separation of concerns across presentation, business logic, and database access layers."
   },
   {
     icon: Database,
     title: "DB Optimization",
-    desc: "Targeted indexing, query profiling, and efficient data access workflows."
+    desc: "Structured schemas, stored procedures, and query tuning for reliable enterprise data operations."
   },
   {
     icon: Shield,
-    title: "Security by Default",
-    desc: "JWT-based authentication, strict input validation, and secure API contracts."
+    title: "Security & Validation",
+    desc: "Role-based authorization concepts, strict input validation, and secure RESTful endpoint contracts."
   },
   {
     icon: Zap,
-    title: "Reliable Performance",
-    desc: "Asynchronous processing, efficient data transfer, and resilient service endpoints."
+    title: "Reliable Delivery",
+    desc: "Asynchronous programming patterns and structured error handling across web applications."
   }
 ];
 
 export default function AboutSection({ profile, darkMode }) {
+  const { toast } = useToast();
+
   if (!profile) return null;
 
   const resumeUrl = profile.resumeUrl || "/resume.pdf";
+
+  const handleResumeClick = async (e) => {
+    if (resumeUrl.startsWith("/") || resumeUrl.includes("resume.pdf")) {
+      try {
+        const res = await fetch(resumeUrl, { method: "HEAD" });
+        if (!res.ok) {
+          e.preventDefault();
+          toast({
+            title: "Resume Document Updating",
+            description:
+              "Please reach out directly via email or LinkedIn for the latest CV."
+          });
+        }
+      } catch {
+        e.preventDefault();
+        toast({
+          title: "Resume Document Updating",
+          description:
+            "Please reach out directly via email or LinkedIn for the latest CV."
+        });
+      }
+    }
+  };
 
   return (
     <section
@@ -84,7 +110,7 @@ export default function AboutSection({ profile, darkMode }) {
               }`}
             >
               {profile.bio ||
-                "Full Stack Developer with 5+ years of experience building scalable enterprise applications and ERP systems. Specialized in .NET, Angular, and cloud-based solutions on Azure."}
+                "Full-Stack Software Engineer with 5+ years of experience engineering enterprise web applications, ERP platforms, and cloud backend services at Saviant and Birlasoft. Specialized in .NET Core APIs, Angular frontend development, and SQL Server databases."}
             </p>
             <p
               className={`text-sm md:text-base leading-relaxed font-normal ${
@@ -92,8 +118,8 @@ export default function AboutSection({ profile, darkMode }) {
               }`}
             >
               My professional background spans full-lifecycle software delivery
-              across Saviant and Birlasoft—from drafting relational schemas in
-              SQL Server and implementing ASP.NET Web APIs to delivering
+              across Saviant and Birlasoft—from authoring relational schemas and
+              stored procedures in SQL Server to developing ASP.NET Web APIs and
               responsive Angular user interfaces.
             </p>
           </div>
@@ -187,6 +213,7 @@ export default function AboutSection({ profile, darkMode }) {
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleResumeClick}
                 className={`inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 font-mono text-xs tracking-widest font-semibold border transition-all ${
                   darkMode
                     ? "border-white/20 text-white hover:border-[#ff0080] hover:text-[#ff0080]"

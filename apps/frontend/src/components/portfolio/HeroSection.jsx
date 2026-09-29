@@ -1,5 +1,6 @@
 import React from "react";
 import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import AnimatedCounter from "./AnimatedCounter";
 
 const XIcon = ({ className }) => (
@@ -9,6 +10,8 @@ const XIcon = ({ className }) => (
 );
 
 export default function HeroSection({ profile, darkMode }) {
+  const { toast } = useToast();
+
   if (!profile) return null;
 
   const socialLinks = [
@@ -19,6 +22,29 @@ export default function HeroSection({ profile, darkMode }) {
   ].filter((link) => link.url);
 
   const resumeUrl = profile.resumeUrl || "/resume.pdf";
+
+  const handleResumeClick = async (e) => {
+    if (resumeUrl.startsWith("/") || resumeUrl.includes("resume.pdf")) {
+      try {
+        const res = await fetch(resumeUrl, { method: "HEAD" });
+        if (!res.ok) {
+          e.preventDefault();
+          toast({
+            title: "Resume Document Updating",
+            description:
+              "Please reach out directly via email or LinkedIn for the latest CV."
+          });
+        }
+      } catch {
+        e.preventDefault();
+        toast({
+          title: "Resume Document Updating",
+          description:
+            "Please reach out directly via email or LinkedIn for the latest CV."
+        });
+      }
+    }
+  };
 
   return (
     <section
@@ -71,10 +97,10 @@ export default function HeroSection({ profile, darkMode }) {
               darkMode ? "text-white/70" : "text-black/70"
             }`}
           >
-            5+ years of experience engineering scalable enterprise web
-            applications, ERP platforms, and high-performance cloud services at
-            Saviant and Birlasoft. Focused on clean architecture, database query
-            optimization, and resilient delivery.
+            5+ years of experience engineering enterprise web applications, ERP
+            platforms, and cloud backend services at Saviant and Birlasoft.
+            Specialized in .NET Core APIs, Angular frontend development, and SQL
+            Server databases.
           </p>
         </div>
 
@@ -91,6 +117,7 @@ export default function HeroSection({ profile, darkMode }) {
             href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleResumeClick}
             className={`inline-flex items-center gap-2 px-7 py-3.5 border font-mono text-xs tracking-widest font-semibold transition-all group ${
               darkMode
                 ? "border-white/30 text-white hover:border-[#ff0080] hover:text-[#ff0080]"
