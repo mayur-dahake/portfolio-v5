@@ -21,7 +21,8 @@ app.use(
 
       if (
         env.ALLOWED_ORIGINS.includes(origin) ||
-        origin.endsWith(".vercel.app")
+        origin.endsWith(".vercel.app") ||
+        /^https?:\/\/localhost(:\d+)?$/.test(origin)
       ) {
         return callback(null, true);
       }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon, FileText } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import Logo from "./Logo";
 
 const navItems = [
   { label: "About", href: "#about", num: "001" },
@@ -101,14 +102,13 @@ export default function Navigation({ darkMode, setDarkMode, profile }) {
         transition={{ duration: 0.6 }}
       >
         <div className="px-6 md:px-12 lg:px-24 h-20 flex items-center justify-between">
-          {/* Logo */}
+          {/* Brand Logo */}
           <a
             href="#"
-            className={`text-xl font-black transition-colors ${
-              darkMode ? "text-white" : "text-black"
-            }`}
+            aria-label="Mayur Dahake - Back to top"
+            className="flex items-center focus-visible:ring-2 focus-visible:ring-[#ff0080] focus-visible:outline-none rounded"
           >
-            ✦
+            <Logo darkMode={darkMode} showText={true} />
           </a>
 
           {/* Desktop nav */}
@@ -231,7 +231,7 @@ export default function Navigation({ darkMode, setDarkMode, profile }) {
           >
             {/* Close button */}
             <div className="px-6 h-20 flex items-center justify-between">
-              <span className="text-xl font-black text-white">✦</span>
+              <Logo darkMode={true} showText={true} />
               <button
                 onClick={() => setIsOpen(false)}
                 aria-label="Close menu"

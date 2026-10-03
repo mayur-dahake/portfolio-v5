@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowUp } from "lucide-react";
+import { LogoMark } from "./Logo";
 
 export default function Footer({ profile, darkMode }) {
   const currentYear = new Date().getFullYear();
@@ -17,14 +18,17 @@ export default function Footer({ profile, darkMode }) {
       }`}
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <p
-          className={`text-xs font-mono ${
-            darkMode ? "text-white/40" : "text-black/50"
-          }`}
-        >
-          © {currentYear} {profile?.fullName || "Mayur Dahake"} — All rights
-          reserved
-        </p>
+        <div className="flex items-center gap-3">
+          <LogoMark className="w-5 h-5 flex-shrink-0" darkMode={darkMode} />
+          <p
+            className={`text-xs font-mono ${
+              darkMode ? "text-white/40" : "text-black/50"
+            }`}
+          >
+            © {currentYear} {profile?.fullName || "Mayur Dahake"} — All rights
+            reserved
+          </p>
+        </div>
 
         <p
           className={`text-xs font-mono ${

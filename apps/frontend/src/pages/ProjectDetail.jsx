@@ -6,6 +6,7 @@ import { useParams, Link } from "react-router-dom";
 import { api } from "@/api/apiClient";
 import { createPageUrl } from "@/utils";
 import { fallbackProjects } from "@/lib/fallbackData";
+import { LogoMark } from "@/components/portfolio/Logo";
 
 function parseCaseStudy(text) {
   if (!text) return [];
@@ -66,13 +67,20 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Back nav */}
-      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 h-16 flex items-center bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 h-16 flex items-center justify-between bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
         <Link
           to={createPageUrl("Home")}
           className="flex items-center gap-2 text-white/50 hover:text-white transition-colors text-xs font-mono tracking-widest"
         >
           <ArrowLeft className="w-4 h-4" />
           BACK TO PORTFOLIO
+        </Link>
+        <Link
+          to={createPageUrl("Home")}
+          aria-label="Mayur Dahake Home"
+          className="hover:opacity-80 transition-opacity"
+        >
+          <LogoMark className="w-6 h-6" darkMode={true} />
         </Link>
       </div>
 

@@ -83,10 +83,10 @@ export default function HeroSection({ profile, darkMode }) {
               darkMode ? "text-white" : "text-black"
             }`}
           >
-            MAYUR DAHAKE
+            {(profile.fullName || profile.name || "MAYUR DAHAKE").toUpperCase()}
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#ff0080] mt-3 tracking-tight">
-            .NET Core · Angular · Azure · SQL Server
+            {profile.headline || ".NET Core · Angular · Azure · SQL Server"}
           </p>
         </div>
 
@@ -97,10 +97,8 @@ export default function HeroSection({ profile, darkMode }) {
               darkMode ? "text-white/70" : "text-black/70"
             }`}
           >
-            5+ years of experience engineering enterprise web applications, ERP
-            platforms, and cloud backend services at Saviant and Birlasoft.
-            Specialized in .NET Core APIs, Angular frontend development, and SQL
-            Server databases.
+            {profile.bio ||
+              "5+ years of experience engineering enterprise web applications, ERP platforms, and cloud backend services at Saviant and Birlasoft. Specialized in .NET Core APIs, Angular frontend development, and SQL Server databases."}
           </p>
         </div>
 

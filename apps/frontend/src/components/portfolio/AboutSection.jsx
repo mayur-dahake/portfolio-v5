@@ -208,6 +208,60 @@ export default function AboutSection({ profile, darkMode }) {
               </a>
             )}
 
+            {profile.phone && (
+              <div
+                className={`flex items-center justify-between p-4 border transition-colors ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02]"
+                    : "border-black/10 bg-black/[0.01]"
+                }`}
+              >
+                <span
+                  className={`text-xs font-mono uppercase tracking-wider ${
+                    darkMode ? "text-white/50" : "text-black/50"
+                  }`}
+                >
+                  Phone
+                </span>
+                <span
+                  className={`font-mono text-sm font-semibold ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}
+                >
+                  {profile.phone}
+                </span>
+              </div>
+            )}
+
+            {profile.website && (
+              <a
+                href={profile.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center justify-between p-4 border transition-colors group ${
+                  darkMode
+                    ? "border-white/10 bg-white/[0.02] hover:border-[#ff0080]"
+                    : "border-black/10 bg-black/[0.01] hover:border-[#ff0080]"
+                }`}
+              >
+                <span
+                  className={`text-xs font-mono uppercase tracking-wider ${
+                    darkMode ? "text-white/50" : "text-black/50"
+                  }`}
+                >
+                  Website
+                </span>
+                <span
+                  className={`font-mono text-sm font-medium flex items-center gap-1.5 ${
+                    darkMode ? "text-white" : "text-black"
+                  }`}
+                >
+                  {profile.website}
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:text-[#ff0080] transition-all" />
+                </span>
+              </a>
+            )}
+
             <div className="pt-4">
               <a
                 href={resumeUrl}
