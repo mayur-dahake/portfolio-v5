@@ -9,7 +9,7 @@ export const contactRouter = Router();
 // Strict rate limiter for contact form to prevent spam
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // Limit each IP to 3 requests per windowMs
+  max: process.env.NODE_ENV === "production" ? 5 : 50,
   message: {
     message:
       "Too many contact requests from this IP, please try again after 15 minutes."

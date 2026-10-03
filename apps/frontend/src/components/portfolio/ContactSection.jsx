@@ -101,10 +101,9 @@ export default function ContactSection({ profile, darkMode }) {
       await api.post("/api/contact", clean);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", message: "" });
-    } catch {
-      // Fallback: If backend is offline, still show confirmation to prevent frustrating user
-      setSubmitStatus("success");
-      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -230,6 +229,31 @@ export default function ContactSection({ profile, darkMode }) {
                 Too many attempts. Please wait a few moments before trying
                 again.
               </p>
+            </div>
+          )}
+
+          {submitStatus === "error" && (
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-red-400 text-sm font-semibold">
+                  Failed to send message
+                </p>
+                <p
+                  className={`text-xs mt-1 font-mono ${
+                    darkMode ? "text-white/60" : "text-black/60"
+                  }`}
+                >
+                  Something went wrong. Please email me directly at{" "}
+                  <a
+                    href={`mailto:${profile?.email || "mayurdahake13@gmail.com"}`}
+                    className="underline text-[#ff0080]"
+                  >
+                    {profile?.email || "mayurdahake13@gmail.com"}
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           )}
 

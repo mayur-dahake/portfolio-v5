@@ -16,6 +16,7 @@ async function request(method, path, body) {
   if (!res.ok) {
     const payload = await res.json().catch(() => ({ message: res.statusText }));
     const err = new Error(payload.message ?? "Request failed");
+    err.status = res.status;
     err.errors = payload.errors;
     throw err;
   }

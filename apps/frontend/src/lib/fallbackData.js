@@ -1,7 +1,7 @@
 export const fallbackProfile = {
   id: "profile-fallback",
   fullName: "Mayur Dahake",
-  headline: "Full-Stack Software Engineer — .NET Core, Angular & Azure",
+  headline: "Full-Stack Software Engineer",
   bio: "Full-Stack Software Engineer with 5+ years of experience engineering enterprise web applications, ERP platforms, and cloud backend services at Saviant and Birlasoft. Specialized in .NET Core APIs, Angular frontend development, and SQL Server databases.",
   location: "India",
   email: "mayurdahake13@gmail.com",
